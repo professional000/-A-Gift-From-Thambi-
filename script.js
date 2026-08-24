@@ -53,8 +53,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let drawingFrame = null;
     let pendingPoint = null;
 
-    const REQUIRED_SCRATCHES = 18;
+    const REQUIRED_SCRATCHES = 45;
     const BRUSH_SIZE = 46;
+    const emojiBubbles =
+    document.getElementById("emojiBubbles");
 
 
     /* =========================================
@@ -758,102 +760,213 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function revealMessage() {
 
-        if (revealed) {
-            return;
-        }
+    if (revealed) {
+        return;
+    }
+
+    revealed = true;
+
+    scratching = false;
 
 
-        revealed = true;
+    if (drawingFrame) {
 
-        scratching = false;
+        cancelAnimationFrame(
+            drawingFrame
+        );
 
-
-        if (drawingFrame) {
-
-            cancelAnimationFrame(
-                drawingFrame
-            );
-
-            drawingFrame = null;
-
-        }
-
-
-        pendingPoint = null;
-
-
-        /*
-         * Completely remove canvas
-         */
-
-        canvas.style.pointerEvents =
-            "none";
-
-        canvas.style.display =
-            "none";
-
-
-        scratchText.style.display =
-            "none";
-
-
-        /*
-         * Show message
-         */
-
-        setTimeout(() => {
-
-            messageBox.classList.remove(
-                "hidden"
-            );
-
-
-            messageBox.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-        }, 200);
+        drawingFrame = null;
 
     }
 
 
-    /* =========================================
-       NEXT MEMORY
-    ========================================= */
-
-    nextButton.addEventListener(
-        "click",
-        () => {
-
-            if (!revealed) {
-                return;
-            }
+    pendingPoint = null;
 
 
-            if (
-                current <
-                memories.length - 1
-            ) {
+    /*
+     * Smoothly clear remaining scratch cover
+     */
 
-                loadMemory(
-                    current + 1
-                );
+    canvas.style.transition =
+        "opacity 0.45s ease";
+
+    canvas.style.opacity = "0";
 
 
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
+    /*
+     * Hide scratch instruction
+     */
 
-            } else {
+    scratchText.style.transition =
+        "opacity 0.3s ease";
 
-                showFinal();
+    scratchText.style.opacity = "0";
 
-            }
 
-        }
-    );
+    /*
+     * Emoji celebration
+     */
+
+    createEmojiBubbles();
+
+
+    /*
+     * Remove canvas completely
+     */
+
+    setTimeout(() => {
+
+        canvas.style.display =
+            "none";
+
+        scratchText.style.display =
+            "none";
+
+    }, 500);
+
+
+    /*
+     * Show special message
+     */
+
+    setTimeout(() => {
+
+        messageBox.classList.remove(
+            "hidden"
+        );
+
+
+        messageBox.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }, 700);
+
+    }
+
+    function createEmojiBubbles() {
+
+    if (!emojiBubbles) {
+        return;
+    }
+
+
+    const emojis = [
+        "❤️",
+        "💕",
+        "💖",
+        "💗",
+        "💓",
+        "💞",
+        "💝",
+        "💘",
+        "🥰",
+        "😍",
+        "😘",
+        "✨",
+        "🌸",
+        "💐",
+        "🎉",
+        "🥳",
+        "💍",
+        "🫶",
+        "😊",
+        "❤️"
+    ];
+
+
+    /*
+     * Clear old bubbles
+     */
+
+    emojiBubbles.innerHTML = "";
+
+
+    /*
+     * Create many bubbles
+     */
+
+    for (
+        let i = 0;
+        i < 22;
+        i++
+    ) {
+
+        const bubble =
+            document.createElement("span");
+
+
+        bubble.className =
+            "emoji-bubble";
+
+
+        bubble.innerText =
+            emojis[
+                Math.floor(
+                    Math.random() *
+                    emojis.length
+                )
+            ];
+
+
+        /*
+         * Random horizontal position
+         */
+
+        bubble.style.left =
+            Math.random() * 100 + "%";
+
+
+        /*
+         * Random animation delay
+         */
+
+        bubble.style.animationDelay =
+            Math.random() * 1.2 + "s";
+
+
+        /*
+         * Random size
+         */
+
+        const size =
+            18 +
+            Math.random() * 22;
+
+
+        bubble.style.fontSize =
+            size + "px";
+
+
+        /*
+         * Random animation duration
+         */
+
+        bubble.style.animationDuration =
+            3 +
+            Math.random() * 2 +
+            "s";
+
+
+        emojiBubbles.appendChild(
+            bubble
+        );
+
+    }
+
+
+    /*
+     * Remove after animation
+     */
+
+    setTimeout(() => {
+
+        emojiBubbles.innerHTML = "";
+
+    }, 6000);
+
+    }
 
 
     /* =========================================
