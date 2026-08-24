@@ -1190,3 +1190,192 @@ button {
     }
 
 }
+
+
+/* =========================================
+   EMOJI BUBBLES
+========================================= */
+
+.emoji-bubbles {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 30;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+}
+
+
+.emoji-bubble {
+
+    position: absolute;
+
+    bottom: -50px;
+
+    display: block;
+
+    opacity: 0;
+
+    filter:
+        drop-shadow(
+            0 3px 8px
+            rgba(0, 0, 0, 0.5)
+        );
+
+    animation:
+        emojiFloat 4s ease-out forwards;
+
+}
+
+
+@keyframes emojiFloat {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translate3d(
+                0,
+                0,
+                0
+            )
+            scale(0.5)
+            rotate(0deg);
+
+    }
+
+    15% {
+
+        opacity: 1;
+
+    }
+
+    50% {
+
+        opacity: 1;
+
+        transform:
+            translate3d(
+                15px,
+                -45%,
+                0
+            )
+            scale(1.05)
+            rotate(10deg);
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translate3d(
+                -20px,
+                -120%,
+                0
+            )
+            scale(1.25)
+            rotate(-15deg);
+
+    }
+
+}
+
+
+/* =========================================
+   PERFORMANCE
+========================================= */
+
+#memoryImage {
+
+    user-select: none;
+
+    -webkit-user-select: none;
+
+    -webkit-user-drag: none;
+
+    pointer-events: none;
+
+}
+
+
+#scratchCanvas {
+
+    touch-action: none;
+
+    user-select: none;
+
+    -webkit-user-select: none;
+
+    -webkit-touch-callout: none;
+
+    -webkit-user-drag: none;
+
+}
+
+
+.scratch-box {
+
+    contain: layout paint;
+
+}
+
+
+.gift,
+.heart {
+
+    will-change: transform;
+
+}
+
+
+.message-box {
+
+    will-change:
+        transform,
+        opacity;
+
+}
+
+
+@media (max-width: 600px) {
+
+    .scratch-box {
+
+        box-shadow:
+            0 15px 40px
+            rgba(0, 0, 0, 0.45);
+
+    }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+
+        scroll-behavior:
+            auto !important;
+
+    }
+
+}
