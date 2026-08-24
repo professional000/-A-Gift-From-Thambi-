@@ -989,3 +989,107 @@ button {
     }
 
 }
+
+
+/* =========================================
+   PERFORMANCE OPTIMIZATION
+========================================= */
+
+/*
+   Prevent browser from trying to select
+   or drag the scratch photo.
+*/
+
+#memoryImage {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+
+/*
+   Scratch canvas is optimized for touch.
+*/
+
+#scratchCanvas {
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+
+    /*
+       Tell browser that this element
+       receives pointer interaction.
+    */
+
+    contain: strict;
+}
+
+
+/*
+   Avoid unnecessary layout work.
+*/
+
+.scratch-box {
+    contain: layout paint;
+}
+
+
+/*
+   Keep animations lightweight.
+*/
+
+.gift,
+.heart {
+    will-change: transform;
+}
+
+
+/*
+   Message animation only uses opacity
+   and transform, which are GPU friendly.
+*/
+
+.message-box {
+    will-change: transform, opacity;
+}
+
+
+/*
+   On small phones, reduce heavy shadows.
+   This helps low-end Android devices.
+*/
+
+@media (max-width: 600px) {
+
+    .scratch-box {
+        box-shadow:
+            0 15px 40px
+            rgba(0, 0, 0, 0.45);
+    }
+
+    .message-box {
+        box-shadow: none;
+    }
+
+}
+
+
+/*
+   Respect devices that prefer reduced motion.
+*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+}
