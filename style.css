@@ -4,20 +4,29 @@
     padding: 0;
 }
 
+
 html {
     scroll-behavior: smooth;
 }
 
+
 body {
     background: #080207;
     color: #ffffff;
-    font-family: Georgia, "Times New Roman", serif;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
     overflow-x: hidden;
 }
+
 
 button {
     font-family: inherit;
 }
+
 
 .hidden {
     display: none !important;
@@ -25,19 +34,24 @@ button {
 
 
 /* =========================================
-   OPENING SCREEN
+   OPENING
 ========================================= */
 
 .opening {
+
     min-height: 100vh;
     min-height: 100dvh;
 
     display: flex;
+
     flex-direction: column;
+
     justify-content: center;
+
     align-items: center;
 
     text-align: center;
+
     padding: 25px;
 
     background:
@@ -47,38 +61,55 @@ button {
             #220711 45%,
             #080207 100%
         );
+
 }
+
 
 .gift {
+
     font-size: 90px;
 
-    animation: giftAnimation 2s infinite;
+    animation:
+        giftAnimation 2s infinite;
+
 }
 
+
 @keyframes giftAnimation {
+
     0%,
     100% {
         transform: scale(1);
     }
 
     50% {
-        transform: scale(1.12) rotate(3deg);
+        transform:
+            scale(1.12)
+            rotate(3deg);
     }
+
 }
 
+
 .small-title {
+
     margin-top: 20px;
 
     color: #d6a4b5;
 
     font-size: 11px;
+
     letter-spacing: 4px;
+
 }
 
+
 .opening h1 {
+
     margin-top: 12px;
 
-    font-size: clamp(45px, 12vw, 80px);
+    font-size:
+        clamp(45px, 12vw, 80px);
 
     background:
         linear-gradient(
@@ -89,31 +120,44 @@ button {
         );
 
     -webkit-background-clip: text;
+
     background-clip: text;
 
     color: transparent;
+
 }
+
 
 .opening h2 {
+
     margin-top: 5px;
 
-    font-size: clamp(28px, 7vw, 45px);
+    font-size:
+        clamp(28px, 7vw, 45px);
+
 }
 
+
 .opening-text {
+
     margin-top: 25px;
 
     color: #d9c2ca;
 
     line-height: 1.8;
+
 }
 
+
 #openGift {
+
     margin-top: 30px;
 
-    padding: 17px 30px;
+    padding:
+        17px 30px;
 
     border: none;
+
     border-radius: 50px;
 
     background:
@@ -126,6 +170,7 @@ button {
     color: #ffffff;
 
     font-size: 17px;
+
     font-weight: bold;
 
     cursor: pointer;
@@ -135,18 +180,27 @@ button {
         rgba(255, 0, 100, 0.35);
 
     transition: 0.3s;
+
 }
+
 
 #openGift:hover {
-    transform: translateY(-3px) scale(1.04);
+
+    transform:
+        translateY(-3px)
+        scale(1.04);
+
 }
 
+
 .from {
+
     margin-top: 25px;
 
     color: #987582;
 
     line-height: 1.7;
+
 }
 
 
@@ -155,6 +209,7 @@ button {
 ========================================= */
 
 .app {
+
     min-height: 100vh;
 
     background:
@@ -164,6 +219,7 @@ button {
             #16050e,
             #080207
         );
+
 }
 
 
@@ -172,34 +228,45 @@ button {
 ========================================= */
 
 .top {
+
     text-align: center;
 
     padding:
         70px 20px 35px;
+
 }
 
+
 .top p {
+
     color: #c794a7;
 
     font-size: 10px;
 
     letter-spacing: 4px;
+
 }
 
+
 .top h1 {
+
     margin-top: 15px;
 
     font-size:
         clamp(34px, 9vw, 60px);
+
 }
 
+
 .top h2 {
+
     margin-top: 8px;
 
     color: #ffabc6;
 
     font-size:
         clamp(25px, 7vw, 40px);
+
 }
 
 
@@ -208,6 +275,7 @@ button {
 ========================================= */
 
 .progress-area {
+
     max-width: 650px;
 
     margin: auto;
@@ -216,15 +284,21 @@ button {
         0 20px 25px;
 
     text-align: center;
+
 }
 
+
 #progressText {
+
     color: #b895a2;
 
     font-size: 12px;
+
 }
 
+
 .progress-bar {
+
     height: 5px;
 
     margin-top: 10px;
@@ -234,9 +308,12 @@ button {
     background: #321520;
 
     overflow: hidden;
+
 }
 
+
 #progressFill {
+
     width: 20%;
 
     height: 100%;
@@ -250,14 +327,16 @@ button {
 
     transition:
         width 0.5s ease;
+
 }
 
 
 /* =========================================
-   MEMORY PAGE
+   MEMORY
 ========================================= */
 
 .memory-page {
+
     max-width: 720px;
 
     margin: auto;
@@ -266,29 +345,37 @@ button {
         20px 18px 100px;
 
     text-align: center;
+
 }
 
+
 .memory-number {
+
     color: #ffabc6;
 
     font-size: 11px;
 
     letter-spacing: 4px;
+
 }
 
+
 .memory-page h2 {
+
     margin-top: 12px;
 
     font-size:
         clamp(28px, 7vw, 42px);
+
 }
 
 
 /* =========================================
-   SCRATCH PHOTO
+   SCRATCH BOX
 ========================================= */
 
 .scratch-box {
+
     position: relative;
 
     width: 100%;
@@ -306,14 +393,18 @@ button {
     box-shadow:
         0 30px 80px
         rgba(0, 0, 0, 0.55);
+
+    contain: layout paint;
+
 }
 
 
-/*
-    PHOTO
-*/
+/* =========================================
+   PHOTO
+========================================= */
 
 #memoryImage {
+
     position: absolute;
 
     inset: 0;
@@ -332,16 +423,18 @@ button {
     -webkit-user-select: none;
 
     -webkit-user-drag: none;
+
+    pointer-events: none;
+
 }
 
 
-/*
-    SCRATCH CANVAS
-
-    இது photo-க்கு மேலே இருக்கும்
-*/
+/* =========================================
+   SCRATCH CANVAS
+========================================= */
 
 #scratchCanvas {
+
     position: absolute;
 
     inset: 0;
@@ -364,14 +457,16 @@ button {
     -webkit-touch-callout: none;
 
     -webkit-user-drag: none;
+
 }
 
 
-/*
-    SCRATCH TEXT
-*/
+/* =========================================
+   SCRATCH TEXT
+========================================= */
 
 .scratch-text {
+
     position: absolute;
 
     left: 50%;
@@ -398,28 +493,38 @@ button {
 
     animation:
         scratchPulse 1.5s infinite;
+
 }
 
+
 @keyframes scratchPulse {
+
     0%,
     100% {
+
         opacity: 1;
 
         transform:
             translate(-50%, -50%)
             scale(1);
+
     }
 
     50% {
+
         opacity: 0.55;
 
         transform:
             translate(-50%, -50%)
             scale(1.08);
+
     }
+
 }
 
+
 .scratch-hint {
+
     margin-top: 15px;
 
     color: #9f818c;
@@ -427,14 +532,120 @@ button {
     font-size: 12px;
 
     line-height: 1.7;
+
 }
 
 
 /* =========================================
-   SPECIAL MESSAGE
+   EMOJI BUBBLES
+========================================= */
+
+.emoji-bubbles {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 30;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+}
+
+
+.emoji-bubble {
+
+    position: absolute;
+
+    bottom: -45px;
+
+    display: block;
+
+    opacity: 0;
+
+    will-change:
+        transform,
+        opacity;
+
+    filter:
+        drop-shadow(
+            0 3px 8px
+            rgba(0, 0, 0, 0.5)
+        );
+
+    animation:
+        emojiFloat
+        4s
+        ease-out
+        forwards;
+
+}
+
+
+@keyframes emojiFloat {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translate3d(
+                0,
+                0,
+                0
+            )
+            scale(0.5)
+            rotate(0deg);
+
+    }
+
+    15% {
+
+        opacity: 1;
+
+    }
+
+    50% {
+
+        opacity: 1;
+
+        transform:
+            translate3d(
+                var(--drift),
+                calc(var(--rise) * -0.5),
+                0
+            )
+            scale(1.05)
+            rotate(10deg);
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translate3d(
+                calc(var(--drift) * -1),
+                calc(var(--rise) * -1),
+                0
+            )
+            scale(1.25)
+            rotate(-15deg);
+
+    }
+
+}
+
+
+/* =========================================
+   MESSAGE
 ========================================= */
 
 .message-box {
+
     margin-top: 30px;
 
     padding:
@@ -454,30 +665,45 @@ button {
         rgba(255, 160, 190, 0.2);
 
     animation:
-        messageAppear 0.8s ease;
+        messageAppear
+        0.8s
+        ease;
+
 }
 
+
 @keyframes messageAppear {
+
     from {
+
         opacity: 0;
 
         transform:
             translateY(25px);
+
     }
 
     to {
+
         opacity: 1;
 
         transform:
             translateY(0);
+
     }
+
 }
+
 
 .message-heart {
+
     font-size: 38px;
+
 }
 
+
 .message-label {
+
     margin-top: 10px;
 
     color: #ffabc6;
@@ -485,9 +711,12 @@ button {
     font-size: 10px;
 
     letter-spacing: 3px;
+
 }
 
+
 #specialMessage {
+
     margin-top: 20px;
 
     color: #eadde3;
@@ -495,14 +724,18 @@ button {
     font-size: 16px;
 
     line-height: 2;
+
 }
 
+
 .message-sign {
+
     margin-top: 20px;
 
     color: #ffabc6;
 
     font-size: 13px;
+
 }
 
 
@@ -511,6 +744,7 @@ button {
 ========================================= */
 
 .next-button {
+
     margin-top: 25px;
 
     padding:
@@ -542,16 +776,23 @@ button {
         rgba(255, 0, 100, 0.25);
 
     transition: 0.3s;
+
 }
+
 
 .next-button:hover {
+
     transform:
         translateY(-3px);
+
 }
 
+
 .next-button:active {
+
     transform:
         scale(0.96);
+
 }
 
 
@@ -560,6 +801,7 @@ button {
 ========================================= */
 
 .final-page {
+
     min-height: 100vh;
 
     position: relative;
@@ -576,14 +818,17 @@ button {
         80px 20px;
 
     background-image:
-    url("thambi.png");
+        url("thambi.png");
 
     background-size: cover;
 
     background-position: center;
+
 }
 
+
 .final-overlay {
+
     position: absolute;
 
     inset: 0;
@@ -593,41 +838,56 @@ button {
             rgba(5, 1, 4, 0.68),
             rgba(30, 4, 16, 0.93)
         );
+
 }
 
+
 .final-content {
+
     position: relative;
 
     z-index: 2;
 
     max-width: 720px;
+
 }
 
+
 .final-label {
+
     color: #ffabc6;
 
     font-size: 11px;
 
     letter-spacing: 3px;
+
 }
 
+
 .final-content h2 {
+
     margin-top: 20px;
 
     font-size:
         clamp(45px, 10vw, 70px);
+
 }
 
+
 .heart {
+
     margin: 20px;
 
     font-size: 50px;
 
     animation:
         heartBeat 1.4s infinite;
+
 }
 
+
 @keyframes heartBeat {
+
     0%,
     100% {
         transform: scale(1);
@@ -636,9 +896,12 @@ button {
     50% {
         transform: scale(1.2);
     }
+
 }
 
+
 .final-content p {
+
     margin-top: 20px;
 
     color: #eee0e6;
@@ -646,9 +909,12 @@ button {
     font-size: 17px;
 
     line-height: 2;
+
 }
 
+
 .final-highlight {
+
     margin-top: 30px;
 
     padding: 25px;
@@ -665,249 +931,81 @@ button {
     line-height: 2;
 
     color: #ffffff;
+
 }
 
+
 .signature {
+
     margin-top: 30px;
 
     color: #bda0ab;
 
     line-height: 2;
+
 }
+
 
 .signature b {
+
     color: #ffabc6;
+
 }
 
 
 /* =========================================
-   FEEDBACK PAGE
+   FINAL FLOATING EMOJIS
 ========================================= */
 
-.feedback-page {
-    min-height: 100vh;
+.final-floating-heart {
 
-    padding:
-        90px 18px;
+    position: fixed;
 
-    text-align: center;
+    bottom: -50px;
 
-    background:
-        radial-gradient(
-            circle at top,
-            #4b1128,
-            #080207 55%
-        );
-}
+    z-index: 9999;
 
-.feedback-inner {
-    max-width: 700px;
-
-    margin: auto;
-}
-
-.feedback-inner h2 {
-    margin-top: 20px;
-
-    font-size:
-        clamp(35px, 9vw, 55px);
-}
-
-
-/* =========================================
-   CHAT
-========================================= */
-
-.chat {
-    margin-top: 40px;
-
-    overflow: hidden;
-
-    text-align: left;
-
-    border-radius: 24px;
-
-    background:
-        rgba(255, 255, 255, 0.055);
-
-    border:
-        1px solid
-        rgba(255, 170, 200, 0.18);
-
-    box-shadow:
-        0 25px 70px
-        rgba(0, 0, 0, 0.45);
-}
-
-.chat-header {
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    padding:
-        17px 20px;
-
-    background:
-        rgba(255, 255, 255, 0.07);
-}
-
-.avatar {
-    width: 45px;
-    height: 45px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff477d,
-            #761034
-        );
-}
-
-.chat-header b {
-    display: block;
-}
-
-.chat-header small {
-    display: block;
-
-    margin-top: 3px;
-
-    color: #ffabc6;
-}
-
-
-/* =========================================
-   TYPING
-========================================= */
-
-.typing {
-    padding:
-        20px 22px 5px;
-
-    color: #ffabc6;
-
-    font-size: 13px;
-
-    font-style: italic;
-}
-
-
-/* =========================================
-   FEEDBACK TEXT
-========================================= */
-
-.feedback-text {
-    margin:
-        10px 18px 25px;
-
-    padding: 22px;
-
-    border-radius: 20px;
-
-    background:
-        rgba(255, 60, 130, 0.1);
-
-    opacity: 0;
-
-    transform:
-        translateY(20px);
-
-    transition:
-        1s ease;
-}
-
-.feedback-text.show {
-    opacity: 1;
-
-    transform:
-        translateY(0);
-}
-
-.feedback-text p {
-    margin-top: 18px;
-
-    color: #eadde3;
-
-    font-size: 15px;
-
-    line-height: 2;
-}
-
-.feedback-text p:first-child {
-    margin-top: 0;
-
-    color: #ffabc6;
-
-    font-size: 18px;
-}
-
-.feedback-text b {
-    color: #ffabc6;
-}
-
-.feedback-text .love {
-    text-align: center;
-
-    font-size: 21px;
-
-    font-weight: bold;
-}
-
-.feedback-text .sign {
-    text-align: right;
-
-    color: #b99ba6;
-
-    font-style: italic;
-}
-
-
-/* =========================================
-   END
-========================================= */
-
-.end-heart {
-    margin-top: 50px;
-
-    font-size: 55px;
-
-    animation:
-        heartBeat 1.4s infinite;
-}
-
-.feedback-inner h3 {
-    margin-top: 20px;
-
-    font-size: 38px;
-}
-
-.end-couple {
-    margin-top: 10px;
-
-    color: #ffabc6;
+    pointer-events: none;
 
     font-size: 25px;
+
+    animation:
+        finalFloat
+        5s
+        ease-out
+        forwards;
+
 }
 
-.created {
-    margin-top: 40px;
 
-    color: #806c75;
+@keyframes finalFloat {
 
-    line-height: 1.8;
-}
+    0% {
 
-.created b {
-    color: #ffabc6;
+        opacity: 0;
+
+        transform:
+            translateY(0)
+            scale(0.5);
+
+    }
+
+    15% {
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translateY(-100vh)
+            scale(1.4);
+
+    }
+
 }
 
 
@@ -918,50 +1016,69 @@ button {
 @media (max-width: 600px) {
 
     .opening {
+
         padding: 20px;
+
     }
+
 
     .gift {
+
         font-size: 70px;
+
     }
+
 
     .top {
+
         padding-top: 50px;
+
     }
+
 
     .memory-page {
+
         padding-left: 13px;
+
         padding-right: 13px;
+
     }
 
+
     .scratch-box {
+
         margin-top: 25px;
 
         border-radius: 17px;
 
         aspect-ratio: 4 / 5;
+
+        box-shadow:
+            0 15px 40px
+            rgba(0, 0, 0, 0.45);
+
     }
 
-    #scratchCanvas {
-        touch-action: none;
-    }
 
     .scratch-text {
+
         font-size: 16px;
+
     }
+
 
     #specialMessage {
+
         font-size: 15px;
+
     }
+
 
     .message-box {
+
         padding:
             25px 16px;
-    }
 
-    .feedback-text {
-        margin-left: 12px;
-        margin-right: 12px;
     }
 
 }
@@ -974,315 +1091,25 @@ button {
 @media (max-width: 380px) {
 
     .scratch-text {
+
         font-size: 14px;
+
     }
+
 
     .scratch-hint {
+
         font-size: 11px;
+
     }
 
+
     .next-button {
+
         padding:
             13px 20px;
 
         font-size: 14px;
-    }
-
-}
-
-
-/* =========================================
-   PERFORMANCE OPTIMIZATION
-========================================= */
-
-/*
-   Prevent browser from trying to select
-   or drag the scratch photo.
-*/
-
-#memoryImage {
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-user-drag: none;
-    pointer-events: none;
-}
-
-
-/*
-   Scratch canvas is optimized for touch.
-*/
-
-#scratchCanvas {
-    touch-action: none;
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
-    -webkit-user-drag: none;
-
-    /*
-       Tell browser that this element
-       receives pointer interaction.
-    */
-
-    contain: strict;
-}
-
-
-/*
-   Avoid unnecessary layout work.
-*/
-
-.scratch-box {
-    contain: layout paint;
-}
-
-
-/*
-   Keep animations lightweight.
-*/
-
-.gift,
-.heart {
-    will-change: transform;
-}
-
-
-/*
-   Message animation only uses opacity
-   and transform, which are GPU friendly.
-*/
-
-.message-box {
-    will-change: transform, opacity;
-}
-
-
-/*
-   On small phones, reduce heavy shadows.
-   This helps low-end Android devices.
-*/
-
-@media (max-width: 600px) {
-
-    .scratch-box {
-        box-shadow:
-            0 15px 40px
-            rgba(0, 0, 0, 0.45);
-    }
-
-    .message-box {
-        box-shadow: none;
-    }
-
-}
-
-
-/*
-   Respect devices that prefer reduced motion.
-*/
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-
-}
-
-
-/* =========================================
-   EMOJI BUBBLES
-========================================= */
-
-.emoji-bubbles {
-
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 30;
-
-    pointer-events: none;
-
-    overflow: hidden;
-
-}
-
-
-.emoji-bubble {
-
-    position: absolute;
-
-    bottom: -50px;
-
-    display: block;
-
-    opacity: 0;
-
-    filter:
-        drop-shadow(
-            0 3px 8px
-            rgba(0, 0, 0, 0.5)
-        );
-
-    animation:
-        emojiFloat 4s ease-out forwards;
-
-}
-
-
-@keyframes emojiFloat {
-
-    0% {
-
-        opacity: 0;
-
-        transform:
-            translate3d(
-                0,
-                0,
-                0
-            )
-            scale(0.5)
-            rotate(0deg);
-
-    }
-
-    15% {
-
-        opacity: 1;
-
-    }
-
-    50% {
-
-        opacity: 1;
-
-        transform:
-            translate3d(
-                15px,
-                -45%,
-                0
-            )
-            scale(1.05)
-            rotate(10deg);
-
-    }
-
-    100% {
-
-        opacity: 0;
-
-        transform:
-            translate3d(
-                -20px,
-                -120%,
-                0
-            )
-            scale(1.25)
-            rotate(-15deg);
-
-    }
-
-}
-
-
-/* =========================================
-   EMOJI BUBBLES
-========================================= */
-
-.emoji-bubbles {
-
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 30;
-
-    pointer-events: none;
-
-    overflow: hidden;
-
-}
-
-
-.emoji-bubble {
-
-    position: absolute;
-
-    bottom: -50px;
-
-    display: block;
-
-    opacity: 0;
-
-    filter:
-        drop-shadow(
-            0 3px 8px
-            rgba(0, 0, 0, 0.5)
-        );
-
-    animation:
-        emojiFloat 4s ease-out forwards;
-
-}
-
-
-@keyframes emojiFloat {
-
-    0% {
-
-        opacity: 0;
-
-        transform:
-            translate3d(
-                0,
-                0,
-                0
-            )
-            scale(0.5)
-            rotate(0deg);
-
-    }
-
-    15% {
-
-        opacity: 1;
-
-    }
-
-    50% {
-
-        opacity: 1;
-
-        transform:
-            translate3d(
-                15px,
-                -45%,
-                0
-            )
-            scale(1.05)
-            rotate(10deg);
-
-    }
-
-    100% {
-
-        opacity: 0;
-
-        transform:
-            translate3d(
-                -20px,
-                -120%,
-                0
-            )
-            scale(1.25)
-            rotate(-15deg);
 
     }
 
@@ -1292,41 +1119,6 @@ button {
 /* =========================================
    PERFORMANCE
 ========================================= */
-
-#memoryImage {
-
-    user-select: none;
-
-    -webkit-user-select: none;
-
-    -webkit-user-drag: none;
-
-    pointer-events: none;
-
-}
-
-
-#scratchCanvas {
-
-    touch-action: none;
-
-    user-select: none;
-
-    -webkit-user-select: none;
-
-    -webkit-touch-callout: none;
-
-    -webkit-user-drag: none;
-
-}
-
-
-.scratch-box {
-
-    contain: layout paint;
-
-}
-
 
 .gift,
 .heart {
@@ -1341,19 +1133,6 @@ button {
     will-change:
         transform,
         opacity;
-
-}
-
-
-@media (max-width: 600px) {
-
-    .scratch-box {
-
-        box-shadow:
-            0 15px 40px
-            rgba(0, 0, 0, 0.45);
-
-    }
 
 }
 
