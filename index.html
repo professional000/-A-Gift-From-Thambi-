@@ -2,6 +2,7 @@
 <html lang="ta">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -10,6 +11,7 @@
     <title>A Gift From Thambi ❤️</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -57,12 +59,14 @@
 
 
     <!-- ================================
-         MAIN WEBSITE
+         MAIN APP
     ================================= -->
 
     <div id="app" class="app hidden">
 
+
         <!-- TOP -->
+
         <header class="top">
 
             <p>
@@ -81,6 +85,7 @@
 
 
         <!-- PROGRESS -->
+
         <div class="progress-area">
 
             <span id="progressText">
@@ -88,21 +93,26 @@
             </span>
 
             <div class="progress-bar">
+
                 <div id="progressFill"></div>
+
             </div>
 
         </div>
 
 
         <!-- ================================
-             MEMORY AREA
+             MEMORY
         ================================= -->
 
-        <main id="memoryPage" class="memory-page">
+        <main id="memoryPage"
+              class="memory-page">
 
             <div class="memory-number"
                  id="memoryNumber">
+
                 MEMORY 01
+
             </div>
 
 
@@ -111,43 +121,52 @@
             </h2>
 
 
-            <!-- SCRATCH PHOTO -->
+            <!-- SCRATCH AREA -->
 
             <div class="scratch-box">
-                <div
-                    id="emojiBubbles" 
-                    class="emoji-bubbles">
-                    
+
+                <!-- PHOTO -->
+
+                <img id="memoryImage"
+                     src="photo1.jpg"
+                     alt="Memory">
+
+
+                <!-- SCRATCH CANVAS -->
+
+                <canvas id="scratchCanvas"></canvas>
+
+
+                <!-- TEXT -->
+
+                <div id="scratchText"
+                     class="scratch-text">
+
+                    ✨ Scratch The Photo ✨
+
                 </div>
 
-    <img id="memoryImage"
-         src="photo1.jpg"
-         alt="Memory">
 
-    <canvas id="scratchCanvas"></canvas>
+                <!-- EMOJI CONTAINER -->
 
-    <div id="scratchText"
-         class="scratch-text">
+                <div id="emojiBubbles"
+                     class="emoji-bubbles">
 
-        ✨ Scratch The Photo ✨
-
-    </div>
-
-    <div id="emojiBubbles"
-         class="emoji-bubbles">
-    </div>
+                </div>
 
             </div>
 
 
             <p class="scratch-hint">
+
                 👆 Finger / Mouse வைத்து photo-வை scratch பண்ணுங்கள்
+
             </p>
 
 
-            <!-- ============================
+            <!-- ================================
                  SPECIAL MESSAGE
-            ============================= -->
+            ================================= -->
 
             <div id="messageBox"
                  class="message-box hidden">
@@ -158,13 +177,17 @@
 
                 <div id="messageNumber"
                      class="message-label">
+
                     SPECIAL MESSAGE 01
+
                 </div>
 
                 <p id="specialMessage"></p>
 
                 <div class="message-sign">
+
                     — Your Thambi ELUMALAI ❤️
+
                 </div>
 
                 <button id="nextButton"
