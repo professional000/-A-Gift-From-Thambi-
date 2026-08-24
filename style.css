@@ -1093,3 +1093,100 @@ button {
     }
 
 }
+
+
+/* =========================================
+   EMOJI BUBBLES
+========================================= */
+
+.emoji-bubbles {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 30;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+}
+
+
+.emoji-bubble {
+
+    position: absolute;
+
+    bottom: -50px;
+
+    display: block;
+
+    opacity: 0;
+
+    filter:
+        drop-shadow(
+            0 3px 8px
+            rgba(0, 0, 0, 0.5)
+        );
+
+    animation:
+        emojiFloat 4s ease-out forwards;
+
+}
+
+
+@keyframes emojiFloat {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translate3d(
+                0,
+                0,
+                0
+            )
+            scale(0.5)
+            rotate(0deg);
+
+    }
+
+    15% {
+
+        opacity: 1;
+
+    }
+
+    50% {
+
+        opacity: 1;
+
+        transform:
+            translate3d(
+                15px,
+                -45%,
+                0
+            )
+            scale(1.05)
+            rotate(10deg);
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translate3d(
+                -20px,
+                -120%,
+                0
+            )
+            scale(1.25)
+            rotate(-15deg);
+
+    }
+
+}
