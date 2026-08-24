@@ -1,40 +1,62 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+
     /* =========================================
        MEMORIES
     ========================================= */
 
     const memories = [
+
         {
             image: "photo1.jpg",
-            title: "ஒரு அழகான நினைவு ❤️",
+
+            title:
+                "ஒரு அழகான நினைவு ❤️",
+
             message:
                 "Akka & Mama... உங்கள் வாழ்க்கை முழுவதும் அன்பும் சந்தோஷமும் நிறைந்திருக்கட்டும். ❤️"
         },
+
         {
             image: "photo2.jpg",
-            title: "இன்னொரு அழகான தருணம் 💕",
+
+            title:
+                "இன்னொரு அழகான தருணம் 💕",
+
             message:
                 "எத்தனை வருடங்கள் ஆனாலும் உங்கள் அன்பும் smile-உம் இப்படியே இருக்கட்டும். ❤️"
         },
+
         {
             image: "photo3.png",
-            title: "Love + Friendship ❤️",
+
+            title:
+                "Love + Friendship ❤️",
+
             message:
                 "Husband & Wife-ஆக மட்டும் இல்லாமல், எப்போதும் best friends-ஆகவும் இருங்கள். ❤️"
         },
+
         {
             image: "photo4.jpg",
-            title: "உங்கள் சந்தோஷம் 💖",
+
+            title:
+                "உங்கள் சந்தோஷம் 💖",
+
             message:
                 "உங்கள் வீட்டில் சிரிப்பும், சந்தோஷமும், அன்பும் எப்போதும் நிறைந்திருக்கட்டும். ❤️"
         },
+
         {
             image: "photo5.jpg",
-            title: "The Final Memory 💞",
+
+            title:
+                "The Final Memory 💞",
+
             message:
                 "இன்னும் பல வருடங்கள், பல Anniversary-கள், பல அழகான memories-ஐ இருவரும் சேர்ந்து உருவாக்குங்கள். ❤️"
         }
+
     ];
 
 
@@ -48,8 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let scratching = false;
 
-    let scratchCount = 0;
-
     let lastX = 0;
 
     let lastY = 0;
@@ -58,15 +78,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let pendingPoint = null;
 
+    let percentageTimer = null;
+
 
     /*
-     * Scratch amount.
-     *
-     * 35 strokes gives approximately
-     * half-photo feel on mobile.
+     * Actual scratch percentage.
      */
 
-    const REQUIRED_SCRATCHES = 35;
+    const REQUIRED_PERCENTAGE = 50;
+
+
+    /*
+     * Brush size.
+     */
 
     const BRUSH_SIZE = 52;
 
@@ -87,6 +111,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const music =
         document.getElementById("bgMusic");
 
+    const memoryPage =
+        document.getElementById("memoryPage");
+
     const memoryImage =
         document.getElementById("memoryImage");
 
@@ -94,7 +121,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("scratchCanvas");
 
     const ctx =
-        canvas.getContext("2d");
+        canvas.getContext("2d", {
+            willReadFrequently: true
+        });
 
     const memoryNumber =
         document.getElementById("memoryNumber");
@@ -131,42 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================
-       SAFETY CHECK
-    ========================================= */
-
-    if (!openGift) {
-
-        console.error(
-            "Open Gift button not found."
-        );
-
-        return;
-    }
-
-
-    if (!canvas) {
-
-        console.error(
-            "Scratch canvas not found."
-        );
-
-        return;
-    }
-
-
-    if (!memoryImage) {
-
-        console.error(
-            "Memory image not found."
-        );
-
-        return;
-    }
-
-
-    /* =========================================
-       DEVICE PIXEL RATIO
-       CAPPED FOR PERFORMANCE
+       DPR
     ========================================= */
 
     function getDPR() {
@@ -187,48 +181,29 @@ document.addEventListener("DOMContentLoaded", () => {
         "click",
         () => {
 
-            opening.classList.add(
-                "hidden"
-            );
+            opening.classList.add("hidden");
 
-            app.classList.remove(
-                "hidden"
-            );
+            app.classList.remove("hidden");
 
 
-            /* ================================
-               MUSIC
-            ================================= */
+            /*
+             * Music
+             */
 
             music.volume = 0.65;
 
             const playPromise =
                 music.play();
 
-
             if (
                 playPromise &&
-                typeof playPromise.catch ===
-                "function"
+                typeof playPromise.catch === "function"
             ) {
 
-                playPromise.catch(
-                    (error) => {
-
-                        console.log(
-                            "Music could not start:",
-                            error
-                        );
-
-                    }
-                );
+                playPromise.catch(() => {});
 
             }
 
-
-            /* ================================
-               FIRST MEMORY
-            ================================= */
 
             loadMemory(0);
 
@@ -248,8 +223,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         scratching = false;
 
-        scratchCount = 0;
-
         lastX = 0;
 
         lastY = 0;
@@ -257,9 +230,22 @@ document.addEventListener("DOMContentLoaded", () => {
         pendingPoint = null;
 
 
-        /* ================================
-           CANCEL OLD FRAME
-        ================================= */
+        /*
+         * Stop percentage checker.
+         */
+
+        if (percentageTimer !== null) {
+
+            clearTimeout(percentageTimer);
+
+            percentageTimer = null;
+
+        }
+
+
+        /*
+         * Cancel animation.
+         */
 
         if (drawingFrame !== null) {
 
@@ -277,24 +263,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /* ================================
-           MESSAGE RESET
+           RESET MESSAGE
         ================================= */
 
-        messageBox.classList.add(
-            "hidden"
-        );
-
+        messageBox.classList.add("hidden");
 
         specialMessage.innerText =
             item.message;
 
-
         messageNumber.innerText =
             "SPECIAL MESSAGE " +
-            String(index + 1).padStart(
-                2,
-                "0"
-            );
+            String(index + 1).padStart(2, "0");
 
 
         /* ================================
@@ -303,11 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         memoryNumber.innerText =
             "MEMORY " +
-            String(index + 1).padStart(
-                2,
-                "0"
-            );
-
+            String(index + 1).padStart(2, "0");
 
         memoryTitle.innerText =
             item.title;
@@ -320,18 +295,16 @@ document.addEventListener("DOMContentLoaded", () => {
         progressText.innerText =
             `Memory ${index + 1} of ${memories.length}`;
 
-
         progressFill.style.width =
             `${((index + 1) / memories.length) * 100}%`;
 
 
         /* ================================
-           NEXT BUTTON
+           BUTTON
         ================================= */
 
         if (
-            index ===
-            memories.length - 1
+            index === memories.length - 1
         ) {
 
             nextButton.innerText =
@@ -373,29 +346,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /* ================================
-           CLEAR OLD EMOJIS
+           CLEAR EMOJIS
         ================================= */
 
-        if (emojiBubbles) {
-
-            emojiBubbles.innerHTML =
-                "";
-
-        }
+        emojiBubbles.innerHTML = "";
 
 
         /* ================================
-           LOAD PHOTO
+           LOAD IMAGE
         ================================= */
 
-        memoryImage.onload =
-            () => {
+        memoryImage.onload = () => {
 
-                requestAnimationFrame(
-                    setupScratch
-                );
+            requestAnimationFrame(
+                setupScratch
+            );
 
-            };
+        };
 
 
         memoryImage.src =
@@ -403,12 +370,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * Browser cache case
+         * Cached image.
          */
 
-        if (
-            memoryImage.complete
-        ) {
+        if (memoryImage.complete) {
 
             requestAnimationFrame(
                 setupScratch
@@ -418,7 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /* ================================
-           PRELOAD NEXT PHOTO
+           PRELOAD NEXT
         ================================= */
 
         if (
@@ -430,9 +395,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 new Image();
 
             nextImage.src =
-                memories[
-                    index + 1
-                ].image;
+                memories[index + 1].image;
 
         }
 
@@ -440,14 +403,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================
-       SETUP SCRATCH CANVAS
+       SETUP SCRATCH
     ========================================= */
 
     function setupScratch() {
 
         const box =
             canvas.parentElement;
-
 
         if (!box) {
             return;
@@ -460,7 +422,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const width =
             Math.round(rect.width);
-
 
         const height =
             Math.round(rect.height);
@@ -485,14 +446,10 @@ document.addEventListener("DOMContentLoaded", () => {
         ================================= */
 
         canvas.width =
-            Math.round(
-                width * dpr
-            );
+            Math.round(width * dpr);
 
         canvas.height =
-            Math.round(
-                height * dpr
-            );
+            Math.round(height * dpr);
 
 
         canvas.style.width =
@@ -503,7 +460,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /* ================================
-           RESET TRANSFORM
+           SCALE
         ================================= */
 
         ctx.setTransform(
@@ -521,7 +478,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /* ================================
-           COVER GRADIENT
+           COVER
         ================================= */
 
         const gradient =
@@ -538,12 +495,10 @@ document.addEventListener("DOMContentLoaded", () => {
             "#704252"
         );
 
-
         gradient.addColorStop(
             0.5,
             "#b58a9b"
         );
-
 
         gradient.addColorStop(
             1,
@@ -564,20 +519,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /* ================================
-           SCRATCH TEXT
+           COVER TEXT
         ================================= */
 
         ctx.fillStyle =
             "rgba(255,255,255,0.25)";
 
-
         ctx.font =
             "bold 20px Arial";
 
-
         ctx.textAlign =
             "center";
-
 
         ctx.textBaseline =
             "middle";
@@ -597,7 +549,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.globalCompositeOperation =
             "destination-out";
 
-
         ctx.lineCap =
             "round";
 
@@ -608,7 +559,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================
-       GET POINTER POSITION
+       GET POSITION
     ========================================= */
 
     function getPosition(event) {
@@ -636,10 +587,7 @@ document.addEventListener("DOMContentLoaded", () => {
        DRAW SCRATCH
     ========================================= */
 
-    function drawScratch(
-        x,
-        y
-    ) {
+    function drawScratch(x, y) {
 
         if (revealed) {
             return;
@@ -651,45 +599,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * Smooth line
+         * Line
          */
 
         ctx.beginPath();
-
 
         ctx.moveTo(
             lastX,
             lastY
         );
 
-
         ctx.lineTo(
             x,
             y
         );
 
-
         ctx.lineWidth =
             BRUSH_SIZE;
-
 
         ctx.lineCap =
             "round";
 
-
         ctx.lineJoin =
             "round";
-
 
         ctx.stroke();
 
 
         /*
-         * Round brush
+         * Brush circle
          */
 
         ctx.beginPath();
-
 
         ctx.arc(
             x,
@@ -699,13 +640,8 @@ document.addEventListener("DOMContentLoaded", () => {
             Math.PI * 2
         );
 
-
         ctx.fill();
 
-
-        /*
-         * Update position
-         */
 
         lastX = x;
 
@@ -713,19 +649,136 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * Count scratch strokes
+         * Check percentage.
          */
 
-        scratchCount++;
+        schedulePercentageCheck();
+
+    }
+
+
+    /* =========================================
+       SCHEDULE PERCENTAGE CHECK
+    ========================================= */
+
+    function schedulePercentageCheck() {
+
+        if (revealed) {
+            return;
+        }
 
 
         /*
-         * Reveal around 50%
+         * Don't check canvas on every
+         * pointer movement.
+         */
+
+        if (percentageTimer !== null) {
+            return;
+        }
+
+
+        percentageTimer =
+            setTimeout(() => {
+
+                percentageTimer = null;
+
+                checkScratchPercentage();
+
+            }, 300);
+
+    }
+
+
+    /* =========================================
+       CHECK ACTUAL SCRATCH %
+    ========================================= */
+
+    function checkScratchPercentage() {
+
+        if (revealed) {
+            return;
+        }
+
+
+        const width =
+            canvas.width;
+
+        const height =
+            canvas.height;
+
+
+        /*
+         * Sample every 8th pixel.
+         *
+         * This keeps mobile performance good.
+         */
+
+        const imageData =
+            ctx.getImageData(
+                0,
+                0,
+                width,
+                height
+            );
+
+
+        const data =
+            imageData.data;
+
+
+        let transparentPixels = 0;
+
+        let sampledPixels = 0;
+
+
+        /*
+         * RGBA = 4 values.
+         *
+         * Every 8th pixel.
+         */
+
+        const pixelStep = 8;
+
+
+        for (
+            let pixel = 0;
+            pixel < width * height;
+            pixel += pixelStep
+        ) {
+
+            const alphaIndex =
+                pixel * 4 + 3;
+
+
+            sampledPixels++;
+
+
+            if (
+                data[alphaIndex] < 50
+            ) {
+
+                transparentPixels++;
+
+            }
+
+        }
+
+
+        const percentage =
+            (
+                transparentPixels /
+                sampledPixels
+            ) * 100;
+
+
+        /*
+         * 50% reached.
          */
 
         if (
-            scratchCount >=
-            REQUIRED_SCRATCHES
+            percentage >=
+            REQUIRED_PERCENTAGE
         ) {
 
             revealMessage();
@@ -759,10 +812,6 @@ document.addEventListener("DOMContentLoaded", () => {
             pos;
 
 
-        /*
-         * Already waiting for frame
-         */
-
         if (
             drawingFrame !== null
         ) {
@@ -773,38 +822,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         drawingFrame =
-            requestAnimationFrame(
-                () => {
+            requestAnimationFrame(() => {
 
-                    drawingFrame =
-                        null;
-
-
-                    if (
-                        !pendingPoint ||
-                        revealed
-                    ) {
-
-                        return;
-
-                    }
+                drawingFrame =
+                    null;
 
 
-                    const point =
-                        pendingPoint;
+                if (
+                    !pendingPoint ||
+                    revealed
+                ) {
 
-
-                    pendingPoint =
-                        null;
-
-
-                    drawScratch(
-                        point.x,
-                        point.y
-                    );
+                    return;
 
                 }
-            );
+
+
+                const point =
+                    pendingPoint;
+
+
+                pendingPoint =
+                    null;
+
+
+                drawScratch(
+                    point.x,
+                    point.y
+                );
+
+            });
 
     }
 
@@ -842,10 +889,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 pos.y
             );
 
-
-            /*
-             * Keep pointer captured
-             */
 
             try {
 
@@ -901,10 +944,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =========================================
-       POINTER CANCEL
-    ========================================= */
-
     canvas.addEventListener(
         "pointercancel",
         () => {
@@ -916,7 +955,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================
-       REVEAL MESSAGE
+       REVEAL
     ========================================= */
 
     function revealMessage() {
@@ -926,13 +965,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-         * IMPORTANT
-         *
-         * Next button works only after
-         * this becomes true.
-         */
-
         revealed = true;
 
         scratching = false;
@@ -940,9 +972,24 @@ document.addEventListener("DOMContentLoaded", () => {
         pendingPoint = null;
 
 
-        /* ================================
-           CANCEL DRAWING FRAME
-        ================================= */
+        /*
+         * Stop percentage check.
+         */
+
+        if (percentageTimer !== null) {
+
+            clearTimeout(
+                percentageTimer
+            );
+
+            percentageTimer = null;
+
+        }
+
+
+        /*
+         * Cancel animation.
+         */
 
         if (drawingFrame !== null) {
 
@@ -956,82 +1003,75 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /* ================================
-           FADE REMAINING COVER
-        ================================= */
-
-        canvas.style.transition =
-            "opacity 0.45s ease";
-
-
-        canvas.style.opacity =
-            "0";
-
-
-        /* ================================
-           HIDE SCRATCH TEXT
-        ================================= */
-
-        scratchText.style.transition =
-            "opacity 0.3s ease";
-
-
-        scratchText.style.opacity =
-            "0";
-
-
-        /* ================================
-           DISABLE CANVAS
-        ================================= */
-
-        canvas.style.pointerEvents =
-            "none";
-
-
-        /* ================================
-           EMOJI CELEBRATION
+           EMOJI
         ================================= */
 
         createEmojiBubbles();
 
 
         /* ================================
-           REMOVE CANVAS
+           FADE SCRATCH COVER
         ================================= */
 
-        setTimeout(
-            () => {
+        canvas.style.transition =
+            "opacity 0.6s ease";
 
-                canvas.style.display =
-                    "none";
-
-                scratchText.style.display =
-                    "none";
-
-            },
-            500
-        );
+        canvas.style.opacity =
+            "0";
 
 
         /* ================================
-           SHOW MESSAGE
+           HIDE TEXT
         ================================= */
 
-        setTimeout(
-            () => {
+        scratchText.style.transition =
+            "opacity 0.35s ease";
 
-                messageBox.classList.remove(
-                    "hidden"
-                );
+        scratchText.style.opacity =
+            "0";
 
 
-                messageBox.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
+        /*
+         * Disable canvas.
+         */
 
-            },
-            700
-        );
+        canvas.style.pointerEvents =
+            "none";
+
+
+        /* ================================
+           REMOVE SCRATCH LAYER
+        ================================= */
+
+        setTimeout(() => {
+
+            canvas.style.display =
+                "none";
+
+            scratchText.style.display =
+                "none";
+
+        }, 650);
+
+
+        /* ================================
+           MESSAGE
+        ================================= */
+
+        setTimeout(() => {
+
+            messageBox.classList.remove(
+                "hidden"
+            );
+
+
+            messageBox.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+
+        }, 750);
 
     }
 
@@ -1042,21 +1082,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function createEmojiBubbles() {
 
-        if (!emojiBubbles) {
-            return;
-        }
-
-
-        /*
-         * Clear previous bubbles
-         */
-
-        emojiBubbles.innerHTML =
-            "";
+        emojiBubbles.innerHTML = "";
 
 
         const emojis = [
 
+            "❤️",
             "❤️",
             "💕",
             "💖",
@@ -1069,6 +1100,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "😍",
             "😘",
             "✨",
+            "✨",
             "🌸",
             "💐",
             "🎉",
@@ -1076,25 +1108,31 @@ document.addEventListener("DOMContentLoaded", () => {
             "💍",
             "🫶",
             "😊",
-            "❤️"
+            "❤️",
+            "💕",
+            "💖",
+            "🥰",
+            "✨",
+            "🌹",
+            "💗",
+            "💞",
+            "🎊"
 
         ];
 
 
         /*
-         * Create 24 bubbles
+         * 30 emojis.
          */
 
         for (
             let i = 0;
-            i < 24;
+            i < 30;
             i++
         ) {
 
             const bubble =
-                document.createElement(
-                    "span"
-                );
+                document.createElement("span");
 
 
             bubble.className =
@@ -1111,25 +1149,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             /*
-             * Random horizontal position
+             * Random position.
              */
 
             bubble.style.left =
-                Math.random() *
-                100 +
-                "%";
+                (
+                    Math.random() * 96
+                ) + "%";
 
 
             /*
-             * Random delay
+             * Random size.
              */
 
-            bubble.style.animationDelay =
-                Math.random() *
-                1.2 +
-                "s";
-
-
-            /*
-             * Random size
-            
+            const s
