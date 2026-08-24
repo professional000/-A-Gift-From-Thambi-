@@ -3,38 +3,39 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =========================================
        MEMORIES
     ========================================= */
+
     const memories = [
-    {
-        image: "photo1.jpg",
-        title: "ஒரு அழகான நினைவு ❤️",
-        message:
-            "Akka & Mama... உங்கள் வாழ்க்கை முழுவதும் அன்பும் சந்தோஷமும் நிறைந்திருக்கட்டும். ❤️"
-    },
-    {
-        image: "photo2.jpg",
-        title: "இன்னொரு அழகான தருணம் 💕",
-        message:
-            "எத்தனை வருடங்கள் ஆனாலும் உங்கள் அன்பும் smile-உம் இப்படியே இருக்கட்டும். ❤️"
-    },
-    {
-        image: "photo3.png",
-        title: "Love + Friendship ❤️",
-        message:
-            "Husband & Wife-ஆக மட்டும் இல்லாமல், எப்போதும் best friends-ஆகவும் இருங்கள். ❤️"
-    },
-    {
-        image: "photo4.jpg",
-        title: "உங்கள் சந்தோஷம் 💖",
-        message:
-            "உங்கள் வீட்டில் சிரிப்பும், சந்தோஷமும், அன்பும் எப்போதும் நிறைந்திருக்கட்டும். ❤️"
-    },
-    {
-        image: "photo5.jpg",
-        title: "The Final Memory 💞",
-        message:
-            "இன்னும் பல வருடங்கள், பல Anniversary-கள், பல அழகான memories-ஐ இருவரும் சேர்ந்து உருவாக்குங்கள். ❤️"
-    }
-];
+        {
+            image: "photo1.jpg",
+            title: "ஒரு அழகான நினைவு ❤️",
+            message:
+                "Akka & Mama... உங்கள் வாழ்க்கை முழுவதும் அன்பும் சந்தோஷமும் நிறைந்திருக்கட்டும். ❤️"
+        },
+        {
+            image: "photo2.jpg",
+            title: "இன்னொரு அழகான தருணம் 💕",
+            message:
+                "எத்தனை வருடங்கள் ஆனாலும் உங்கள் அன்பும் smile-உம் இப்படியே இருக்கட்டும். ❤️"
+        },
+        {
+            image: "photo3.png",
+            title: "Love + Friendship ❤️",
+            message:
+                "Husband & Wife-ஆக மட்டும் இல்லாமல், எப்போதும் best friends-ஆகவும் இருங்கள். ❤️"
+        },
+        {
+            image: "photo4.jpg",
+            title: "உங்கள் சந்தோஷம் 💖",
+            message:
+                "உங்கள் வீட்டில் சிரிப்பும், சந்தோஷமும், அன்பும் எப்போதும் நிறைந்திருக்கட்டும். ❤️"
+        },
+        {
+            image: "photo5.jpg",
+            title: "The Final Memory 💞",
+            message:
+                "இன்னும் பல வருடங்கள், பல Anniversary-கள், பல அழகான memories-ஐ இருவரும் சேர்ந்து உருவாக்குங்கள். ❤️"
+        }
+    ];
 
 
     /* =========================================
@@ -42,29 +43,29 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================================= */
 
     let current = 0;
-
+    let revealed = false;
     let scratching = false;
 
-    let revealed = false;
-
     let scratchCount = 0;
+    let lastX = 0;
+    let lastY = 0;
+
+    let drawingFrame = null;
+    let pendingPoint = null;
+
+    const REQUIRED_SCRATCHES = 18;
+    const BRUSH_SIZE = 46;
 
 
     /* =========================================
        ELEMENTS
     ========================================= */
 
-    const opening =
-        document.getElementById("opening");
+    const opening = document.getElementById("opening");
+    const app = document.getElementById("app");
+    const openGift = document.getElementById("openGift");
 
-    const app =
-        document.getElementById("app");
-
-    const openGift =
-        document.getElementById("openGift");
-
-    const music =
-        document.getElementById("bgMusic");
+    const music = document.getElementById("bgMusic");
 
     const memoryImage =
         document.getElementById("memoryImage");
@@ -73,7 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("scratchCanvas");
 
     const ctx =
-        canvas.getContext("2d");
+        canvas.getContext("2d", {
+            alpha: true
+        });
 
     const memoryNumber =
         document.getElementById("memoryNumber");
@@ -107,17 +110,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================
-       CHECK ELEMENTS
+       SAFETY CHECK
     ========================================= */
 
-    if (!openGift) {
-        console.error("Open Gift button not found");
+    if (
+        !openGift ||
+        !app ||
+        !memoryImage ||
+        !canvas
+    ) {
+        console.error(
+            "Required website elements are missing."
+        );
         return;
     }
 
-    if (!canvas) {
-        console.error("Scratch canvas not found");
-        return;
+
+    /* =========================================
+       DEVICE PIXEL RATIO
+       CAPPED FOR MOBILE PERFORMANCE
+    ========================================= */
+
+    function getDPR() {
+
+        return Math.min(
+            window.devicePixelRatio || 1,
+            1.5
+        );
+
     }
 
 
@@ -125,37 +145,30 @@ document.addEventListener("DOMContentLoaded", () => {
        OPEN GIFT
     ========================================= */
 
-    openGift.addEventListener("click", function () {
-
-        console.log("Gift opened");
+    openGift.addEventListener("click", () => {
 
         opening.classList.add("hidden");
-
         app.classList.remove("hidden");
 
 
-        /*
-         * Browser allows music because
-         * this function is directly triggered
-         * by the button click.
-         */
+        /* MUSIC */
 
-        music.volume = 0.7;
+        music.volume = 0.65;
 
-        const playPromise = music.play();
+        const playPromise =
+            music.play();
 
-        if (playPromise !== undefined) {
+        if (
+            playPromise &&
+            typeof playPromise.catch === "function"
+        ) {
 
-            playPromise
-                .then(() => {
-                    console.log("Music playing");
-                })
-                .catch(error => {
-                    console.log(
-                        "Music could not start:",
-                        error
-                    );
-                });
+            playPromise.catch(() => {
+                console.log(
+                    "Music playback was blocked."
+                );
+            });
+
         }
 
 
@@ -173,20 +186,45 @@ document.addEventListener("DOMContentLoaded", () => {
         current = index;
 
         revealed = false;
-
         scratching = false;
 
         scratchCount = 0;
+
+        lastX = 0;
+        lastY = 0;
+
+        pendingPoint = null;
+
+
+        if (drawingFrame) {
+
+            cancelAnimationFrame(
+                drawingFrame
+            );
+
+            drawingFrame = null;
+
+        }
 
 
         const item =
             memories[index];
 
 
-        /* PHOTO */
+        /* MESSAGE */
 
-        memoryImage.src =
-            item.image;
+        messageBox.classList.add(
+            "hidden"
+        );
+
+
+        specialMessage.innerText =
+            item.message;
+
+
+        messageNumber.innerText =
+            "SPECIAL MESSAGE " +
+            String(index + 1).padStart(2, "0");
 
 
         /* TITLE */
@@ -200,43 +238,10 @@ document.addEventListener("DOMContentLoaded", () => {
             item.title;
 
 
-        /* MESSAGE */
-
-        messageNumber.innerText =
-            "SPECIAL MESSAGE " +
-            String(index + 1).padStart(2, "0");
-
-
-        specialMessage.innerText =
-            item.message;
-
-
-        /* HIDE MESSAGE */
-
-        messageBox.classList.add(
-            "hidden"
-        );
-
-
-        /* SCRATCH TEXT */
-
-        scratchText.style.display =
-            "block";
-
-
-        /* CANVAS */
-
-        canvas.style.display =
-            "block";
-
-        canvas.style.pointerEvents =
-            "auto";
-
-
         /* PROGRESS */
 
         progressText.innerText =
-            `Memory ${index + 1} of 5`;
+            `Memory ${index + 1} of ${memories.length}`;
 
 
         progressFill.style.width =
@@ -245,51 +250,78 @@ document.addEventListener("DOMContentLoaded", () => {
 
         /* NEXT BUTTON */
 
-        if (
-            index ===
-            memories.length - 1
-        ) {
+        nextButton.innerText =
+            index === memories.length - 1
+                ? "❤️ Final Message"
+                : "Next Memory ❤️";
 
-            nextButton.innerText =
-                "❤️ Final Message";
+
+        /* RESET SCRATCH UI */
+
+        scratchText.style.display =
+            "block";
+
+        canvas.style.display =
+            "block";
+
+        canvas.style.pointerEvents =
+            "auto";
+
+
+        /*
+         * Remove old image handler
+         */
+
+        memoryImage.onload = null;
+
+
+        /*
+         * Load image
+         */
+
+        memoryImage.src =
+            item.image;
+
+
+        /*
+         * Setup after image is ready
+         */
+
+        if (memoryImage.complete) {
+
+            requestAnimationFrame(
+                setupScratch
+            );
 
         } else {
 
-            nextButton.innerText =
-                "Next Memory ❤️";
+            memoryImage.onload =
+                () => {
+
+                    requestAnimationFrame(
+                        setupScratch
+                    );
+
+                };
 
         }
 
 
         /*
-         * IMPORTANT:
-         * Remove old onload
-         * and use one function.
+         * Preload ONLY next image.
+         * This avoids loading all photos at once.
          */
 
-        memoryImage.onload =
-            function () {
+        if (
+            index <
+            memories.length - 1
+        ) {
 
-                setTimeout(() => {
+            const nextImage =
+                new Image();
 
-                    setupScratch();
-
-                }, 50);
-
-            };
-
-
-        /*
-         * Browser cache case
-         */
-
-        if (memoryImage.complete) {
-
-            setTimeout(() => {
-
-                setupScratch();
-
-            }, 50);
+            nextImage.src =
+                memories[index + 1].image;
 
         }
 
@@ -305,7 +337,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const box =
             canvas.parentElement;
 
-
         if (!box) {
             return;
         }
@@ -318,7 +349,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const width =
             Math.round(rect.width);
 
-
         const height =
             Math.round(rect.height);
 
@@ -327,28 +357,23 @@ document.addEventListener("DOMContentLoaded", () => {
             width <= 0 ||
             height <= 0
         ) {
-
-            console.log(
-                "Scratch box has no size"
-            );
-
             return;
         }
 
 
         const dpr =
-            window.devicePixelRatio || 1;
+            getDPR();
 
 
         /*
-         * Reset canvas
+         * Physical canvas size
          */
 
         canvas.width =
-            width * dpr;
+            Math.round(width * dpr);
 
         canvas.height =
-            height * dpr;
+            Math.round(height * dpr);
 
 
         canvas.style.width =
@@ -359,7 +384,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * Reset transform
+         * Reset canvas transform
          */
 
         ctx.setTransform(
@@ -372,13 +397,13 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /*
-         * Scratch cover
-         */
-
         ctx.globalCompositeOperation =
             "source-over";
 
+
+        /*
+         * Scratch cover gradient
+         */
 
         const gradient =
             ctx.createLinearGradient(
@@ -418,24 +443,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * Scratch text
+         * Scratch label
          */
 
         ctx.fillStyle =
             "rgba(255,255,255,0.25)";
 
-
         ctx.font =
             "bold 20px Arial";
-
 
         ctx.textAlign =
             "center";
 
-
         ctx.textBaseline =
             "middle";
-
 
         ctx.fillText(
             "✨ SCRATCH HERE ✨",
@@ -445,22 +466,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * IMPORTANT
+         * Eraser mode
          */
 
         ctx.globalCompositeOperation =
             "destination-out";
 
 
-        console.log(
-            "Scratch canvas ready"
-        );
+        /*
+         * Brush settings
+         */
+
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+
 
     }
 
 
     /* =========================================
-       GET POINTER POSITION
+       POINTER POSITION
     ========================================= */
 
     function getPosition(event) {
@@ -469,40 +494,14 @@ document.addEventListener("DOMContentLoaded", () => {
             canvas.getBoundingClientRect();
 
 
-        let clientX;
-        let clientY;
-
-
-        if (
-            event.touches &&
-            event.touches.length > 0
-        ) {
-
-            clientX =
-                event.touches[0].clientX;
-
-            clientY =
-                event.touches[0].clientY;
-
-        } else {
-
-            clientX =
-                event.clientX;
-
-            clientY =
-                event.clientY;
-
-        }
-
-
         return {
 
             x:
-                clientX -
+                event.clientX -
                 rect.left,
 
             y:
-                clientY -
+                event.clientY -
                 rect.top
 
         };
@@ -511,22 +510,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================
-       SCRATCH FUNCTION
+       DRAW SCRATCH
     ========================================= */
 
-    function scratch(event) {
-
-        if (revealed) {
-            return;
-        }
-
-
-        event.preventDefault();
-
-
-        const pos =
-            getPosition(event);
-
+    function drawScratch(
+        x,
+        y
+    ) {
 
         ctx.globalCompositeOperation =
             "destination-out";
@@ -536,30 +526,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * Bigger brush
+         * Connect previous point
+         * to current point.
+         *
+         * This creates smooth scratching
+         * with fewer canvas operations.
          */
 
+        ctx.moveTo(
+            lastX,
+            lastY
+        );
+
+
+        ctx.lineTo(
+            x,
+            y
+        );
+
+
+        ctx.lineWidth =
+            BRUSH_SIZE;
+
+
+        ctx.stroke();
+
+
+        /*
+         * First point
+         */
+
+        ctx.beginPath();
+
         ctx.arc(
-            pos.x,
-            pos.y,
-            42,
+            x,
+            y,
+            BRUSH_SIZE / 2,
             0,
             Math.PI * 2
         );
 
-
         ctx.fill();
+
+
+        lastX = x;
+        lastY = y;
 
 
         scratchCount++;
 
 
-        /*
-         * 25 strokes is enough
-         */
-
         if (
-            scratchCount >= 25
+            scratchCount >=
+            REQUIRED_SCRATCHES
         ) {
 
             revealMessage();
@@ -570,103 +589,165 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================
-       MOUSE EVENTS
+       SCHEDULE SCRATCH
+       requestAnimationFrame prevents
+       too many canvas drawings.
+    ========================================= */
+
+    function scheduleScratch(event) {
+
+        if (
+            revealed ||
+            !scratching
+        ) {
+            return;
+        }
+
+
+        const pos =
+            getPosition(event);
+
+
+        pendingPoint = pos;
+
+
+        if (drawingFrame !== null) {
+            return;
+        }
+
+
+        drawingFrame =
+            requestAnimationFrame(() => {
+
+                drawingFrame = null;
+
+
+                if (
+                    !pendingPoint ||
+                    revealed
+                ) {
+                    return;
+                }
+
+
+                const point =
+                    pendingPoint;
+
+                pendingPoint = null;
+
+
+                drawScratch(
+                    point.x,
+                    point.y
+                );
+
+            });
+
+    }
+
+
+    /* =========================================
+       POINTER DOWN
     ========================================= */
 
     canvas.addEventListener(
-        "mousedown",
-        function (event) {
+        "pointerdown",
+        (event) => {
+
+            if (revealed) {
+                return;
+            }
+
+
+            event.preventDefault();
+
 
             scratching = true;
 
-            scratch(event);
 
-        }
-    );
+            const pos =
+                getPosition(event);
 
 
-    canvas.addEventListener(
-        "mousemove",
-        function (event) {
+            lastX = pos.x;
+            lastY = pos.y;
 
-            if (scratching) {
 
-                scratch(event);
+            drawScratch(
+                pos.x,
+                pos.y
+            );
 
+
+            try {
+
+                canvas.setPointerCapture(
+                    event.pointerId
+                );
+
+            } catch (error) {
+                /* Ignore */
             }
-
-        }
-    );
-
-
-    window.addEventListener(
-        "mouseup",
-        function () {
-
-            scratching = false;
 
         }
     );
 
 
     /* =========================================
-       TOUCH EVENTS
+       POINTER MOVE
     ========================================= */
 
     canvas.addEventListener(
-        "touchstart",
-        function (event) {
+        "pointermove",
+        (event) => {
 
-            scratching = true;
-
-            scratch(event);
-
-        },
-        {
-            passive: false
-        }
-    );
-
-
-    canvas.addEventListener(
-        "touchmove",
-        function (event) {
-
-            if (scratching) {
-
-                scratch(event);
-
+            if (!scratching) {
+                return;
             }
 
-        },
-        {
-            passive: false
+
+            event.preventDefault();
+
+
+            scheduleScratch(event);
+
+        }
+    );
+
+
+    /* =========================================
+       POINTER UP
+    ========================================= */
+
+    canvas.addEventListener(
+        "pointerup",
+        () => {
+
+            scratching = false;
+
         }
     );
 
 
     canvas.addEventListener(
-        "touchend",
-        function () {
+        "pointercancel",
+        () => {
 
             scratching = false;
 
-        },
-        {
-            passive: false
         }
     );
 
 
     canvas.addEventListener(
-        "touchcancel",
-        function () {
+        "pointerleave",
+        () => {
 
-            scratching = false;
+            /*
+             * Do not force stop here.
+             * Pointer capture handles touch.
+             */
 
-        },
-        {
-            passive: false
         }
     );
 
@@ -684,22 +765,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
         revealed = true;
 
+        scratching = false;
+
+
+        if (drawingFrame) {
+
+            cancelAnimationFrame(
+                drawingFrame
+            );
+
+            drawingFrame = null;
+
+        }
+
+
+        pendingPoint = null;
+
 
         /*
-         * Clear canvas completely
+         * Completely remove canvas
          */
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
 
         canvas.style.pointerEvents =
             "none";
-
 
         canvas.style.display =
             "none";
@@ -710,25 +798,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * Show special message
+         * Show message
          */
 
-        setTimeout(
-            function () {
+        setTimeout(() => {
 
-                messageBox.classList.remove(
-                    "hidden"
-                );
+            messageBox.classList.remove(
+                "hidden"
+            );
 
 
-                messageBox.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
+            messageBox.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
 
-            },
-            300
-        );
+        }, 200);
 
     }
 
@@ -739,12 +824,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     nextButton.addEventListener(
         "click",
-        function () {
+        () => {
 
             if (!revealed) {
-
                 return;
-
             }
 
 
@@ -822,24 +905,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================
-       RESIZE FIX
+       RESIZE
+       Debounced to avoid repeated canvas
+       rebuilding while browser is resizing.
     ========================================= */
+
+    let resizeTimer = null;
+
 
     window.addEventListener(
         "resize",
-        function () {
+        () => {
 
-            if (
-                !app.classList.contains(
-                    "hidden"
-                ) &&
-                !revealed
-            ) {
+            clearTimeout(
+                resizeTimer
+            );
 
-                setupScratch();
 
-            }
+            resizeTimer =
+                setTimeout(() => {
 
+                    if (
+                        !app.classList.contains(
+                            "hidden"
+                        ) &&
+                        !revealed
+                    ) {
+
+                        setupScratch();
+
+                    }
+
+                }, 150);
+
+        },
+        {
+            passive: true
         }
     );
 
@@ -849,7 +950,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================================= */
 
     console.log(
-        "Website JavaScript loaded successfully"
+        "Optimized website JavaScript loaded."
     );
 
 });
