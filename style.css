@@ -4,153 +4,116 @@
     padding: 0;
 }
 
-
 html {
     scroll-behavior: smooth;
 }
 
-
 body {
     background: #080207;
-    color: white;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
+    color: #ffffff;
+    font-family: Georgia, "Times New Roman", serif;
     overflow-x: hidden;
 }
-
 
 button {
     font-family: inherit;
 }
-
 
 .hidden {
     display: none !important;
 }
 
 
-/* =====================================
-   OPENING
-===================================== */
+/* =========================================
+   OPENING SCREEN
+========================================= */
 
 .opening {
-
     min-height: 100vh;
     min-height: 100dvh;
 
     display: flex;
     flex-direction: column;
-
     justify-content: center;
     align-items: center;
 
     text-align: center;
-
     padding: 25px;
 
     background:
         radial-gradient(
             circle at center,
-            #58142e 0%,
-            #17050e 45%,
+            #641632 0%,
+            #220711 45%,
             #080207 100%
         );
-
 }
-
 
 .gift {
-
     font-size: 90px;
 
-    animation:
-        giftAnimation 2s infinite;
-
+    animation: giftAnimation 2s infinite;
 }
 
-
 @keyframes giftAnimation {
-
-    0%, 100% {
+    0%,
+    100% {
         transform: scale(1);
     }
 
     50% {
-        transform: scale(1.12)
-                   rotate(3deg);
+        transform: scale(1.12) rotate(3deg);
     }
-
 }
 
-
 .small-title {
-
     margin-top: 20px;
 
     color: #d6a4b5;
 
     font-size: 11px;
-
     letter-spacing: 4px;
-
 }
 
-
 .opening h1 {
-
     margin-top: 12px;
 
-    font-size:
-        clamp(45px, 12vw, 80px);
+    font-size: clamp(45px, 12vw, 80px);
 
     background:
         linear-gradient(
             90deg,
-            white,
+            #ffffff,
             #ffabc6,
-            white
+            #ffffff
         );
 
     -webkit-background-clip: text;
+    background-clip: text;
 
     color: transparent;
-
 }
-
 
 .opening h2 {
-
     margin-top: 5px;
 
-    font-size:
-        clamp(28px, 7vw, 45px);
-
+    font-size: clamp(28px, 7vw, 45px);
 }
 
-
 .opening-text {
-
     margin-top: 25px;
 
     color: #d9c2ca;
 
     line-height: 1.8;
-
 }
 
-
 #openGift {
-
     margin-top: 30px;
 
     padding: 17px 30px;
 
     border: none;
-
     border-radius: 50px;
 
     background:
@@ -160,49 +123,38 @@ button {
             #8e123e
         );
 
-    color: white;
+    color: #ffffff;
 
     font-size: 17px;
-
     font-weight: bold;
 
     cursor: pointer;
 
     box-shadow:
         0 15px 45px
-        rgba(255, 0, 100, .35);
+        rgba(255, 0, 100, 0.35);
 
-    transition: .3s;
-
+    transition: 0.3s;
 }
-
 
 #openGift:hover {
-
-    transform:
-        translateY(-3px)
-        scale(1.04);
-
+    transform: translateY(-3px) scale(1.04);
 }
 
-
 .from {
-
     margin-top: 25px;
 
     color: #987582;
 
     line-height: 1.7;
-
 }
 
 
-/* =====================================
-   TOP
-===================================== */
+/* =========================================
+   MAIN APP
+========================================= */
 
 .app {
-
     min-height: 100vh;
 
     background:
@@ -212,86 +164,67 @@ button {
             #16050e,
             #080207
         );
-
 }
 
 
-.top {
+/* =========================================
+   HEADER
+========================================= */
 
+.top {
     text-align: center;
 
     padding:
-        70px
-        20px
-        35px;
-
+        70px 20px 35px;
 }
 
-
 .top p {
-
     color: #c794a7;
 
     font-size: 10px;
 
     letter-spacing: 4px;
-
 }
 
-
 .top h1 {
-
     margin-top: 15px;
 
     font-size:
         clamp(34px, 9vw, 60px);
-
 }
 
-
 .top h2 {
-
     margin-top: 8px;
 
     color: #ffabc6;
 
     font-size:
         clamp(25px, 7vw, 40px);
-
 }
 
 
-/* =====================================
+/* =========================================
    PROGRESS
-===================================== */
+========================================= */
 
 .progress-area {
-
     max-width: 650px;
 
     margin: auto;
 
     padding:
-        0
-        20px
-        25px;
+        0 20px 25px;
 
     text-align: center;
-
 }
 
-
 #progressText {
-
     color: #b895a2;
 
     font-size: 12px;
-
 }
 
-
 .progress-bar {
-
     height: 5px;
 
     margin-top: 10px;
@@ -301,12 +234,9 @@ button {
     background: #321520;
 
     overflow: hidden;
-
 }
 
-
 #progressFill {
-
     width: 20%;
 
     height: 100%;
@@ -318,57 +248,48 @@ button {
             #ffabc6
         );
 
-    transition: width .5s ease;
-
+    transition:
+        width 0.5s ease;
 }
 
 
-/* =====================================
-   MEMORY
-===================================== */
+/* =========================================
+   MEMORY PAGE
+========================================= */
 
 .memory-page {
-
     max-width: 720px;
 
     margin: auto;
 
     padding:
-        20px
-        18px
-        100px;
+        20px 18px 100px;
 
     text-align: center;
-
 }
 
-
 .memory-number {
-
     color: #ffabc6;
 
     font-size: 11px;
 
     letter-spacing: 4px;
-
 }
 
-
 .memory-page h2 {
-
     margin-top: 12px;
 
     font-size:
         clamp(28px, 7vw, 42px);
-
 }
 
 
-/* =====================================
-   SCRATCH BOX
-===================================== */
+/* =========================================
+   SCRATCH PHOTO
+========================================= */
 
 .scratch-box {
+    position: relative;
 
     width: 100%;
 
@@ -376,35 +297,23 @@ button {
 
     margin-top: 30px;
 
-    position: relative;
-
     overflow: hidden;
 
     border-radius: 22px;
 
-    background: #111;
+    background: #111111;
 
     box-shadow:
         0 30px 80px
-        rgba(0,0,0,.5);
-
+        rgba(0, 0, 0, 0.55);
 }
 
+
+/*
+    PHOTO
+*/
 
 #memoryImage {
-
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-
-}
-
-
-#scratchCanvas {
-
     position: absolute;
 
     inset: 0;
@@ -412,15 +321,57 @@ button {
     width: 100%;
     height: 100%;
 
-    touch-action: none;
+    object-fit: cover;
 
-    cursor: crosshair;
+    display: block;
 
+    z-index: 1;
+
+    user-select: none;
+
+    -webkit-user-select: none;
+
+    -webkit-user-drag: none;
 }
 
 
-.scratch-text {
+/*
+    SCRATCH CANVAS
 
+    இது photo-க்கு மேலே இருக்கும்
+*/
+
+#scratchCanvas {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    z-index: 10;
+
+    cursor: crosshair;
+
+    touch-action: none;
+
+    user-select: none;
+
+    -webkit-user-select: none;
+
+    -webkit-touch-callout: none;
+
+    -webkit-user-drag: none;
+}
+
+
+/*
+    SCRATCH TEXT
+*/
+
+.scratch-text {
     position: absolute;
 
     left: 50%;
@@ -429,106 +380,104 @@ button {
     transform:
         translate(-50%, -50%);
 
+    z-index: 20;
+
     pointer-events: none;
+
+    color: #ffffff;
 
     font-size: 18px;
 
     font-weight: bold;
 
+    white-space: nowrap;
+
     text-shadow:
-        0 2px 15px black;
+        0 2px 15px
+        rgba(0, 0, 0, 0.9);
 
     animation:
         scratchPulse 1.5s infinite;
-
 }
 
-
 @keyframes scratchPulse {
-
-    0%, 100% {
+    0%,
+    100% {
         opacity: 1;
+
         transform:
             translate(-50%, -50%)
             scale(1);
     }
 
     50% {
-        opacity: .5;
+        opacity: 0.55;
+
         transform:
             translate(-50%, -50%)
             scale(1.08);
     }
-
 }
 
-
 .scratch-hint {
-
     margin-top: 15px;
 
     color: #9f818c;
 
     font-size: 12px;
 
+    line-height: 1.7;
 }
 
 
-/* =====================================
-   MESSAGE
-===================================== */
+/* =========================================
+   SPECIAL MESSAGE
+========================================= */
 
 .message-box {
-
     margin-top: 30px;
 
-    padding: 28px 20px;
+    padding:
+        28px 20px;
 
     border-radius: 24px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,50,120,.14),
-            rgba(255,255,255,.035)
+            rgba(255, 50, 120, 0.14),
+            rgba(255, 255, 255, 0.035)
         );
 
     border:
         1px solid
-        rgba(255,160,190,.2);
+        rgba(255, 160, 190, 0.2);
 
     animation:
-        messageAppear .8s ease;
-
+        messageAppear 0.8s ease;
 }
 
-
 @keyframes messageAppear {
-
     from {
         opacity: 0;
+
         transform:
             translateY(25px);
     }
 
     to {
         opacity: 1;
+
         transform:
             translateY(0);
     }
-
 }
-
 
 .message-heart {
-
     font-size: 38px;
-
 }
 
-
 .message-label {
-
     margin-top: 10px;
 
     color: #ffabc6;
@@ -536,12 +485,9 @@ button {
     font-size: 10px;
 
     letter-spacing: 3px;
-
 }
 
-
 #specialMessage {
-
     margin-top: 20px;
 
     color: #eadde3;
@@ -549,31 +495,30 @@ button {
     font-size: 16px;
 
     line-height: 2;
-
 }
 
-
 .message-sign {
-
     margin-top: 20px;
 
     color: #ffabc6;
 
     font-size: 13px;
-
 }
 
 
-.next-button {
+/* =========================================
+   NEXT BUTTON
+========================================= */
 
+.next-button {
     margin-top: 25px;
 
     padding:
-        14px
-        24px;
+        14px 24px;
 
-    border: 1px solid
-        rgba(255,160,190,.3);
+    border:
+        1px solid
+        rgba(255, 160, 190, 0.3);
 
     border-radius: 50px;
 
@@ -584,7 +529,7 @@ button {
             #8d123d
         );
 
-    color: white;
+    color: #ffffff;
 
     font-size: 15px;
 
@@ -594,27 +539,27 @@ button {
 
     box-shadow:
         0 10px 30px
-        rgba(255,0,100,.25);
+        rgba(255, 0, 100, 0.25);
 
-    transition: .3s;
-
+    transition: 0.3s;
 }
-
 
 .next-button:hover {
-
     transform:
         translateY(-3px);
+}
 
+.next-button:active {
+    transform:
+        scale(0.96);
 }
 
 
-/* =====================================
-   FINAL
-===================================== */
+/* =========================================
+   FINAL PAGE
+========================================= */
 
 .final-page {
-
     min-height: 100vh;
 
     position: relative;
@@ -627,7 +572,8 @@ button {
 
     text-align: center;
 
-    padding: 80px 20px;
+    padding:
+        80px 20px;
 
     background-image:
         url("photos/thambi.jpg");
@@ -635,84 +581,64 @@ button {
     background-size: cover;
 
     background-position: center;
-
 }
 
-
 .final-overlay {
-
     position: absolute;
 
     inset: 0;
 
     background:
         linear-gradient(
-            rgba(5,1,4,.68),
-            rgba(30,4,16,.93)
+            rgba(5, 1, 4, 0.68),
+            rgba(30, 4, 16, 0.93)
         );
-
 }
 
-
 .final-content {
-
     position: relative;
 
     z-index: 2;
 
     max-width: 720px;
-
 }
 
-
 .final-label {
-
     color: #ffabc6;
 
     font-size: 11px;
 
     letter-spacing: 3px;
-
 }
 
-
 .final-content h2 {
-
     margin-top: 20px;
 
     font-size:
         clamp(45px, 10vw, 70px);
-
 }
 
-
 .heart {
-
     margin: 20px;
 
     font-size: 50px;
 
     animation:
         heartBeat 1.4s infinite;
-
 }
 
-
 @keyframes heartBeat {
-
-    0%, 100% {
+    0%,
+    100% {
         transform: scale(1);
     }
 
     50% {
         transform: scale(1.2);
     }
-
 }
 
-
 .final-content p {
-
     margin-top: 20px;
 
     color: #eee0e6;
@@ -720,12 +646,9 @@ button {
     font-size: 17px;
 
     line-height: 2;
-
 }
 
-
 .final-highlight {
-
     margin-top: 30px;
 
     padding: 25px;
@@ -733,48 +656,39 @@ button {
     border-radius: 20px;
 
     background:
-        rgba(255,255,255,.08);
+        rgba(255, 255, 255, 0.08);
 
     border:
         1px solid
-        rgba(255,170,200,.2);
+        rgba(255, 170, 200, 0.2);
 
     line-height: 2;
 
-    color: white;
-
+    color: #ffffff;
 }
 
-
 .signature {
-
     margin-top: 30px;
 
     color: #bda0ab;
 
     line-height: 2;
-
 }
-
 
 .signature b {
-
     color: #ffabc6;
-
 }
 
 
-/* =====================================
-   FEEDBACK
-===================================== */
+/* =========================================
+   FEEDBACK PAGE
+========================================= */
 
 .feedback-page {
-
     min-height: 100vh;
 
     padding:
-        90px
-        18px;
+        90px 18px;
 
     text-align: center;
 
@@ -784,31 +698,27 @@ button {
             #4b1128,
             #080207 55%
         );
-
 }
 
-
 .feedback-inner {
-
     max-width: 700px;
 
     margin: auto;
-
 }
 
-
 .feedback-inner h2 {
-
     margin-top: 20px;
 
     font-size:
         clamp(35px, 9vw, 55px);
-
 }
 
 
-.chat {
+/* =========================================
+   CHAT
+========================================= */
 
+.chat {
     margin-top: 40px;
 
     overflow: hidden;
@@ -818,37 +728,32 @@ button {
     border-radius: 24px;
 
     background:
-        rgba(255,255,255,.055);
+        rgba(255, 255, 255, 0.055);
 
     border:
         1px solid
-        rgba(255,170,200,.18);
+        rgba(255, 170, 200, 0.18);
 
     box-shadow:
         0 25px 70px
-        rgba(0,0,0,.45);
-
+        rgba(0, 0, 0, 0.45);
 }
 
-
 .chat-header {
-
     display: flex;
 
     align-items: center;
 
     gap: 12px;
 
-    padding: 17px 20px;
+    padding:
+        17px 20px;
 
     background:
-        rgba(255,255,255,.07);
-
+        rgba(255, 255, 255, 0.07);
 }
 
-
 .avatar {
-
     width: 45px;
     height: 45px;
 
@@ -865,54 +770,51 @@ button {
             #ff477d,
             #761034
         );
-
 }
-
 
 .chat-header b {
-
     display: block;
-
 }
 
-
 .chat-header small {
-
     display: block;
 
     margin-top: 3px;
 
     color: #ffabc6;
-
 }
 
 
-.typing {
+/* =========================================
+   TYPING
+========================================= */
 
+.typing {
     padding:
-        20px
-        22px
-        5px;
+        20px 22px 5px;
 
     color: #ffabc6;
 
     font-size: 13px;
 
     font-style: italic;
-
 }
 
 
-.feedback-text {
+/* =========================================
+   FEEDBACK TEXT
+========================================= */
 
-    margin: 10px 18px 25px;
+.feedback-text {
+    margin:
+        10px 18px 25px;
 
     padding: 22px;
 
     border-radius: 20px;
 
     background:
-        rgba(255,60,130,.1);
+        rgba(255, 60, 130, 0.1);
 
     opacity: 0;
 
@@ -921,22 +823,16 @@ button {
 
     transition:
         1s ease;
-
 }
 
-
 .feedback-text.show {
-
     opacity: 1;
 
     transform:
         translateY(0);
-
 }
 
-
 .feedback-text p {
-
     margin-top: 18px;
 
     color: #eadde3;
@@ -944,105 +840,90 @@ button {
     font-size: 15px;
 
     line-height: 2;
-
 }
 
-
 .feedback-text p:first-child {
-
     margin-top: 0;
 
     color: #ffabc6;
 
     font-size: 18px;
-
 }
-
 
 .feedback-text b {
-
     color: #ffabc6;
-
 }
 
-
 .feedback-text .love {
-
     text-align: center;
 
     font-size: 21px;
 
     font-weight: bold;
-
 }
 
-
 .feedback-text .sign {
-
     text-align: right;
 
     color: #b99ba6;
 
     font-style: italic;
-
 }
 
 
-.end-heart {
+/* =========================================
+   END
+========================================= */
 
+.end-heart {
     margin-top: 50px;
 
     font-size: 55px;
 
     animation:
         heartBeat 1.4s infinite;
-
 }
 
-
 .feedback-inner h3 {
-
     margin-top: 20px;
 
     font-size: 38px;
-
 }
 
-
 .end-couple {
-
     margin-top: 10px;
 
     color: #ffabc6;
 
     font-size: 25px;
-
 }
 
-
 .created {
-
     margin-top: 40px;
 
     color: #806c75;
 
     line-height: 1.8;
-
 }
-
 
 .created b {
-
     color: #ffabc6;
-
 }
 
 
-/* =====================================
+/* =========================================
    MOBILE
-===================================== */
+========================================= */
 
 @media (max-width: 600px) {
+
+    .opening {
+        padding: 20px;
+    }
+
+    .gift {
+        font-size: 70px;
+    }
 
     .top {
         padding-top: 50px;
@@ -1054,16 +935,57 @@ button {
     }
 
     .scratch-box {
+        margin-top: 25px;
+
         border-radius: 17px;
+
+        aspect-ratio: 4 / 5;
+    }
+
+    #scratchCanvas {
+        touch-action: none;
+    }
+
+    .scratch-text {
+        font-size: 16px;
     }
 
     #specialMessage {
         font-size: 15px;
     }
 
+    .message-box {
+        padding:
+            25px 16px;
+    }
+
     .feedback-text {
         margin-left: 12px;
         margin-right: 12px;
+    }
+
+}
+
+
+/* =========================================
+   VERY SMALL PHONES
+========================================= */
+
+@media (max-width: 380px) {
+
+    .scratch-text {
+        font-size: 14px;
+    }
+
+    .scratch-hint {
+        font-size: 11px;
+    }
+
+    .next-button {
+        padding:
+            13px 20px;
+
+        font-size: 14px;
     }
 
 }
