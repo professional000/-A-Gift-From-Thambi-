@@ -3,39 +3,38 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =========================================
        MEMORIES
     ========================================= */
-
     const memories = [
-        {
-            image: "photos/photo1.jpg",
-            title: "ஒரு அழகான நினைவு ❤️",
-            message:
-                "Akka & Mama... உங்கள் வாழ்க்கை முழுவதும் அன்பும் சந்தோஷமும் நிறைந்திருக்கட்டும். ❤️"
-        },
-        {
-            image: "photos/photo2.jpg",
-            title: "இன்னொரு அழகான தருணம் 💕",
-            message:
-                "எத்தனை வருடங்கள் ஆனாலும் உங்கள் அன்பும் smile-உம் இப்படியே இருக்கட்டும். ❤️"
-        },
-        {
-            image: "photos/photo3.jpg",
-            title: "Love + Friendship ❤️",
-            message:
-                "Husband & Wife-ஆக மட்டும் இல்லாமல், எப்போதும் best friends-ஆகவும் இருங்கள். ❤️"
-        },
-        {
-            image: "photos/photo4.jpg",
-            title: "உங்கள் சந்தோஷம் 💖",
-            message:
-                "உங்கள் வீட்டில் சிரிப்பும், சந்தோஷமும், அன்பும் எப்போதும் நிறைந்திருக்கட்டும். ❤️"
-        },
-        {
-            image: "photos/photo5.jpg",
-            title: "The Final Memory 💞",
-            message:
-                "இன்னும் பல வருடங்கள், பல Anniversary-கள், பல அழகான memories-ஐ இருவரும் சேர்ந்து உருவாக்குங்கள். ❤️"
-        }
-    ];
+    {
+        image: "photo1.jpg",
+        title: "ஒரு அழகான நினைவு ❤️",
+        message:
+            "Akka & Mama... உங்கள் வாழ்க்கை முழுவதும் அன்பும் சந்தோஷமும் நிறைந்திருக்கட்டும். ❤️"
+    },
+    {
+        image: "photo2.jpg",
+        title: "இன்னொரு அழகான தருணம் 💕",
+        message:
+            "எத்தனை வருடங்கள் ஆனாலும் உங்கள் அன்பும் smile-உம் இப்படியே இருக்கட்டும். ❤️"
+    },
+    {
+        image: "photo3.png",
+        title: "Love + Friendship ❤️",
+        message:
+            "Husband & Wife-ஆக மட்டும் இல்லாமல், எப்போதும் best friends-ஆகவும் இருங்கள். ❤️"
+    },
+    {
+        image: "photo4.jpg",
+        title: "உங்கள் சந்தோஷம் 💖",
+        message:
+            "உங்கள் வீட்டில் சிரிப்பும், சந்தோஷமும், அன்பும் எப்போதும் நிறைந்திருக்கட்டும். ❤️"
+    },
+    {
+        image: "photo5.jpg",
+        title: "The Final Memory 💞",
+        message:
+            "இன்னும் பல வருடங்கள், பல Anniversary-கள், பல அழகான memories-ஐ இருவரும் சேர்ந்து உருவாக்குங்கள். ❤️"
+    }
+];
 
 
     /* =========================================
