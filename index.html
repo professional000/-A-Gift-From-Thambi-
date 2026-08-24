@@ -1,340 +1,283 @@
 <!DOCTYPE html>
 <html lang="ta">
+
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
 
-    <meta name="theme-color" content="#090309">
+    <meta name="theme-color" content="#080207">
 
-    <title>Happy Married Life Akka & Mama ❤️</title>
+    <title>
+        A Gift From Thambi ❤️
+    </title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-    <!-- MUSIC -->
-    <audio id="bgMusic" loop preload="auto">
-        <source src="music/song.mp3" type="audio/mpeg">
+
+    <!-- =========================================
+         BACKGROUND MUSIC
+    ========================================== -->
+
+    <audio
+        id="bgMusic"
+        loop
+        preload="auto"
+    >
+        <source
+            src="music/song.mp3"
+            type="audio/mpeg"
+        >
     </audio>
 
-    <!-- START SCREEN -->
-    <div id="startScreen" class="screen">
+
+    <!-- =========================================
+         OPENING SCREEN
+    ========================================== -->
+
+    <div
+        id="startScreen"
+        class="start-screen"
+    >
 
         <div class="floating-hearts">
             ❤️ 💕 ❤️ 💕 ❤️
         </div>
 
-        <div class="gift-box">
+
+        <div class="gift-icon">
             🎁
         </div>
 
-        <h1>Happy Married Life</h1>
 
-        <h2>Akka & Mama ❤️</h2>
-
-        <p>
-            உங்களுக்காக<br>
-            ஒரு சின்ன surprise gift...
+        <p class="opening-small">
+            A SPECIAL GIFT FROM
         </p>
 
-        <button id="startBtn">
+
+        <h1>
+            Thambi ❤️
+        </h1>
+
+
+        <h2>
+            Akka & Mama
+        </h2>
+
+
+        <p class="opening-text">
+
+            உங்களுக்காக<br>
+
+            ஒரு சின்ன surprise...
+
+        </p>
+
+
+        <button
+            id="startBtn"
+            class="start-button"
+        >
+
             💝 Open Your Gift
+
         </button>
 
-        <small>
-            — With Love, THAMBI ❤️
+
+        <small class="opening-sign">
+
+            With Lots of Love,<br>
+            THAMBI ❤️
+
         </small>
 
     </div>
 
 
-    <!-- MAIN WEBSITE -->
-    <main id="mainContent" class="hidden">
 
-        <!-- HERO -->
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main
+        id="mainContent"
+        class="hidden"
+    >
+
+
+        <!-- =====================================
+             HERO
+        ====================================== -->
+
         <section class="hero">
 
-            <div class="stars"></div>
-
-            <p class="small-title">
-                A Special Gift From
+            <p class="hero-label">
+                A LITTLE SURPRISE
             </p>
+
 
             <h1>
-                Thambi
-                <span>❤️</span>
-                Akka & Mama
+
+                Happy Married Life
+
+                <br>
+
+                <span>
+                    Akka & Mama ❤️
+                </span>
+
             </h1>
 
-            <p>
-                உங்களுடைய அழகான Married Life-ஐ
-                நினைவுகூரும் ஒரு சிறிய பரிசு...
+
+            <p class="hero-description">
+
+                உங்கள் இருவருக்காக
+                ஒரு Thambi-யின்
+                அன்பான surprise...
+
             </p>
 
-            <div class="scroll-down">
+
+            <div class="scroll-arrow">
                 ↓
             </div>
 
         </section>
 
 
-        <!-- INTRO -->
-        <section class="intro section">
+
+        <!-- =====================================
+             INTRO
+        ====================================== -->
+
+        <section class="intro-section section">
 
             <span class="badge">
                 🎁 YOUR MEMORIES
             </span>
 
+
             <h2>
-                ஒவ்வொரு Photo-வுக்குள்ளும்<br>
-                ஒரு Wish இருக்கு ❤️
+
+                ஒவ்வொரு Photo-வுக்குள்ளும்
+
+                <br>
+
+                ஒரு Special Message ❤️
+
             </h2>
 
+
             <p>
+
                 Photo மேல இருக்கிற cover-ஐ
                 உங்கள் விரலால் scratch பண்ணுங்கள்...
+
+                <br><br>
+
+                Photo reveal ஆனதும்
+                அதற்கான special message
+                உங்களுக்காக காத்திருக்கிறது. 💕
+
             </p>
 
         </section>
 
 
-        <!-- SCRATCH CARDS -->
-        <section class="photos-section section">
 
-            <!-- PHOTO 1 -->
+        <!-- =====================================
+             MEMORY 1
+        ====================================== -->
+
+        <section
+            class="memory-section"
+            id="memory1"
+        >
+
             <div class="memory-card">
 
-                <div class="memory-number">
-                    MEMORY 01
+                <div class="memory-title">
+
+                    <span>
+                        MEMORY 01
+                    </span>
+
+                    <h2>
+                        ஒரு அழகான நினைவு ❤️
+                    </h2>
+
                 </div>
+
 
                 <div class="scratch-container">
 
                     <img
                         src="photos/photo1.jpg"
                         class="memory-photo"
-                        alt="Memory 1"
+                        alt="Memory Photo 1"
                     >
+
 
                     <canvas
                         class="scratch-canvas"
-                        data-index="0">
-                    </canvas>
+                        data-index="0"
+                    ></canvas>
 
-                    <div class="scratch-text">
+
+                    <div class="scratch-label">
+
                         ✨ Scratch Me ✨
+
                     </div>
 
                 </div>
 
-                <div class="wish">
-                    <span>❤️ Wish 01</span>
+
+                <!-- SPECIAL MESSAGE 1 -->
+
+                <div
+                    class="special-message"
+                    id="special1"
+                >
+
+                    <div class="message-icon">
+                        💌
+                    </div>
+
+
+                    <span>
+                        SPECIAL MESSAGE 01
+                    </span>
+
 
                     <p>
-                        Akka & Mama,
+
+                        Akka & Mama...
+
+                        <br><br>
+
+                        இந்த photo-வை பார்க்கும்போது,
                         உங்கள் வாழ்க்கையில் எப்போதும்
-                        அன்பும், சந்தோஷமும்,
-                        புரிதலும் நிறைந்திருக்கணும்.
-                        இருவரும் இப்படியே
-                        வாழ்க்கை முழுவதும்
-                        ஒருவருக்கொருவர் துணையாக
-                        இருக்கணும். ❤️
+                        இப்படியே சந்தோஷமும்
+                        அன்பும் நிறைந்திருக்கணும்
+                        என்று மனசார wish பண்றேன். ❤️
+
                     </p>
 
-                    <b>
-                        — உங்கள் Thambi
-                    </b>
-                </div>
-
-            </div>
-
-
-            <!-- PHOTO 2 -->
-            <div class="memory-card">
-
-                <div class="memory-number">
-                    MEMORY 02
-                </div>
-
-                <div class="scratch-container">
-
-                    <img
-                        src="photos/photo2.jpg"
-                        class="memory-photo"
-                        alt="Memory 2"
-                    >
-
-                    <canvas
-                        class="scratch-canvas"
-                        data-index="1">
-                    </canvas>
-
-                    <div class="scratch-text">
-                        ✨ Scratch Me ✨
-                    </div>
-
-                </div>
-
-                <div class="wish">
-                    <span>💕 Wish 02</span>
-
-                    <p>
-                        வாழ்க்கையில் எவ்வளவு வருடங்கள்
-                        கடந்தாலும்,
-                        முதல் நாள் இருந்த அதே
-                        அன்போடு ஒருவரை ஒருவர்
-                        பார்த்துக்கொள்ளணும்.
-                        உங்கள் smile எப்போதும்
-                        இப்படியே இருக்கணும். 😊❤️
-                    </p>
 
                     <b>
-                        — Love You Both Thambi
+                        — உங்கள் Thambi ❤️
                     </b>
-                </div>
 
-            </div>
-
-
-            <!-- PHOTO 3 -->
-            <div class="memory-card">
-
-                <div class="memory-number">
-                    MEMORY 03
-                </div>
-
-                <div class="scratch-container">
-
-                    <img
-                        src="photos/photo3.jpg"
-                        class="memory-photo"
-                        alt="Memory 3"
-                    >
-
-                    <canvas
-                        class="scratch-canvas"
-                        data-index="2">
-                    </canvas>
-
-                    <div class="scratch-text">
-                        ✨ Scratch Me ✨
-                    </div>
-
-                </div>
-
-                <div class="wish">
-                    <span>💖 Wish 03</span>
-
-                    <p>
-                        சின்ன சின்ன misunderstandings வந்தாலும்,
-                        பெரிய அன்பால் அதை கடந்து செல்லுங்கள்.
-                        உங்கள் relationship-ல்
-                        Love மட்டும் இல்லாமல்
-                        Friendship-மும் எப்போதும்
-                        நிறைந்திருக்கட்டும். ❤️
-                    </p>
-
-                    <b>
-                        — உங்கள் அன்பான Thambi
-                    </b>
-                </div>
-
-            </div>
-
-
-            <!-- PHOTO 4 -->
-            <div class="memory-card">
-
-                <div class="memory-number">
-                    MEMORY 04
-                </div>
-
-                <div class="scratch-container">
-
-                    <img
-                        src="photos/photo4.jpg"
-                        class="memory-photo"
-                        alt="Memory 4"
-                    >
-
-                    <canvas
-                        class="scratch-canvas"
-                        data-index="3">
-                    </canvas>
-
-                    <div class="scratch-text">
-                        ✨ Scratch Me ✨
-                    </div>
-
-                </div>
-
-                <div class="wish">
-                    <span>💝 Wish 04</span>
-
-                    <p>
-                        உங்கள் வீட்டில் எப்போதும்
-                        சந்தோஷமான சிரிப்பும்,
-                        நல்ல நினைவுகளும்,
-                        அன்பான தருணங்களும்
-                        நிறைந்திருக்க வேண்டும்.
-                        உங்கள் வாழ்க்கை
-                        தினமும் ஒரு அழகான
-                        புதிய chapter ஆக இருக்கட்டும். ❤️
-                    </p>
-
-                    <b>
-                        — Lots of Love Thambi
-                    </b>
-                </div>
-
-            </div>
-
-
-            <!-- PHOTO 5 -->
-            <div class="memory-card">
-
-                <div class="memory-number">
-                    MEMORY 05
-                </div>
-
-                <div class="scratch-container">
-
-                    <img
-                        src="photos/photo5.jpg"
-                        class="memory-photo"
-                        alt="Memory 5"
-                    >
-
-                    <canvas
-                        class="scratch-canvas"
-                        data-index="4">
-                    </canvas>
-
-                    <div class="scratch-text">
-                        ✨ Scratch Me ✨
-                    </div>
-
-                </div>
-
-                <div class="wish">
-                    <span>💞 Final Wish</span>
-
-                    <p>
-                        இன்னும் பல வருடங்கள்,
-                        பல Anniversary-கள்,
-                        பல சந்தோஷமான memories-ஐ
-                        இருவரும் சேர்ந்து உருவாக்கணும்.
-                        உங்கள் Married Life
-                        என்றும் அழகாக இருக்கட்டும். ❤️
-                    </p>
-
-                    <b>
-                        — Happy Married Life
-                        Akka & Mama ❤️
-                    </b>
                 </div>
 
             </div>
@@ -342,10 +285,406 @@
         </section>
 
 
-        <!-- FINAL MESSAGE -->
+
+        <!-- =====================================
+             MEMORY 2
+        ====================================== -->
+
+        <section
+            class="memory-section locked"
+            id="memory2"
+        >
+
+            <div class="memory-card">
+
+                <div class="memory-title">
+
+                    <span>
+                        MEMORY 02
+                    </span>
+
+                    <h2>
+                        இன்னொரு அழகான தருணம் 💕
+                    </h2>
+
+                </div>
+
+
+                <div class="scratch-container">
+
+                    <img
+                        src="photos/photo2.jpg"
+                        class="memory-photo"
+                        alt="Memory Photo 2"
+                    >
+
+
+                    <canvas
+                        class="scratch-canvas"
+                        data-index="1"
+                    ></canvas>
+
+
+                    <div class="scratch-label">
+
+                        ✨ Scratch Me ✨
+
+                    </div>
+
+                </div>
+
+
+                <!-- SPECIAL MESSAGE 2 -->
+
+                <div
+                    class="special-message"
+                    id="special2"
+                >
+
+                    <div class="message-icon">
+                        💌
+                    </div>
+
+
+                    <span>
+                        SPECIAL MESSAGE 02
+                    </span>
+
+
+                    <p>
+
+                        எத்தனை வருடங்கள் ஆனாலும்,
+                        இந்த smile-ம்,
+                        இந்த love-ம்
+                        ஒருபோதும் குறையாமல்
+                        இருக்கணும்.
+
+                        <br><br>
+
+                        Happy Married Life
+                        Akka & Mama! ❤️
+
+                    </p>
+
+
+                    <b>
+                        — Love You Both ❤️
+                    </b>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             MEMORY 3
+        ====================================== -->
+
+        <section
+            class="memory-section locked"
+            id="memory3"
+        >
+
+            <div class="memory-card">
+
+                <div class="memory-title">
+
+                    <span>
+                        MEMORY 03
+                    </span>
+
+                    <h2>
+                        Love + Friendship ❤️
+                    </h2>
+
+                </div>
+
+
+                <div class="scratch-container">
+
+                    <img
+                        src="photos/photo3.jpg"
+                        class="memory-photo"
+                        alt="Memory Photo 3"
+                    >
+
+
+                    <canvas
+                        class="scratch-canvas"
+                        data-index="2"
+                    ></canvas>
+
+
+                    <div class="scratch-label">
+
+                        ✨ Scratch Me ✨
+
+                    </div>
+
+                </div>
+
+
+                <!-- SPECIAL MESSAGE 3 -->
+
+                <div
+                    class="special-message"
+                    id="special3"
+                >
+
+                    <div class="message-icon">
+                        💌
+                    </div>
+
+
+                    <span>
+                        SPECIAL MESSAGE 03
+                    </span>
+
+
+                    <p>
+
+                        Husband & Wife-ஆக மட்டும் இல்லாமல்,
+
+                        <br><br>
+
+                        ஒருவருக்கு ஒருவர்
+                        best friends-ஆகவும்
+                        எப்போதும் இருக்கணும்.
+
+                        <br><br>
+
+                        சின்ன misunderstandings வந்தாலும்
+                        பெரிய அன்பால் அதை
+                        கடந்து செல்லணும். ❤️
+
+                    </p>
+
+
+                    <b>
+                        — உங்கள் அன்பான Thambi
+                        
+                    </b>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             MEMORY 4
+        ====================================== -->
+
+        <section
+            class="memory-section locked"
+            id="memory4"
+        >
+
+            <div class="memory-card">
+
+                <div class="memory-title">
+
+                    <span>
+                        MEMORY 04
+                    </span>
+
+                    <h2>
+                        உங்கள் சந்தோஷம் 💖
+                    </h2>
+
+                </div>
+
+
+                <div class="scratch-container">
+
+                    <img
+                        src="photos/photo4.jpg"
+                        class="memory-photo"
+                        alt="Memory Photo 4"
+                    >
+
+
+                    <canvas
+                        class="scratch-canvas"
+                        data-index="3"
+                    ></canvas>
+
+
+                    <div class="scratch-label">
+
+                        ✨ Scratch Me ✨
+
+                    </div>
+
+                </div>
+
+
+                <!-- SPECIAL MESSAGE 4 -->
+
+                <div
+                    class="special-message"
+                    id="special4"
+                >
+
+                    <div class="message-icon">
+                        💌
+                    </div>
+
+
+                    <span>
+                        SPECIAL MESSAGE 04
+                    </span>
+
+
+                    <p>
+
+                        உங்கள் வாழ்க்கையில் வரும்
+                        ஒவ்வொரு நாளும்,
+
+                        <br><br>
+
+                        இன்னொரு அழகான
+                        memory-யாக மாறணும்.
+
+                        <br><br>
+
+                        உங்கள் வீட்டில்
+                        சிரிப்பும்,
+                        சந்தோஷமும்,
+                        அன்பும் எப்போதும்
+                        நிறைந்திருக்கட்டும். ❤️
+
+                    </p>
+
+
+                    <b>
+                        — God Bless You Both ❤️
+                    </b>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             MEMORY 5
+        ====================================== -->
+
+        <section
+            class="memory-section locked"
+            id="memory5"
+        >
+
+            <div class="memory-card">
+
+                <div class="memory-title">
+
+                    <span>
+                        MEMORY 05
+                    </span>
+
+                    <h2>
+                        The Final Memory 💞
+                    </h2>
+
+                </div>
+
+
+                <div class="scratch-container">
+
+                    <img
+                        src="photos/photo5.jpg"
+                        class="memory-photo"
+                        alt="Memory Photo 5"
+                    >
+
+
+                    <canvas
+                        class="scratch-canvas"
+                        data-index="4"
+                    ></canvas>
+
+
+                    <div class="scratch-label">
+
+                        ✨ Scratch Me ✨
+
+                    </div>
+
+                </div>
+
+
+                <!-- SPECIAL MESSAGE 5 -->
+
+                <div
+                    class="special-message"
+                    id="special5"
+                >
+
+                    <div class="message-icon">
+                        💌
+                    </div>
+
+
+                    <span>
+                        SPECIAL MESSAGE 05
+                    </span>
+
+
+                    <p>
+
+                        இது ஒரு photo மட்டும் இல்ல...
+
+                        <br><br>
+
+                        உங்கள் வாழ்க்கையின்
+                        இன்னொரு அழகான நினைவு.
+
+                        <br><br>
+
+                        இன்னும் பல வருடங்கள்,
+                        பல Anniversary-கள்,
+                        பல சந்தோஷமான memories-ஐ
+                        இருவரும் சேர்ந்து
+                        உருவாக்கணும்.
+
+                        <br><br>
+
+                        இப்படியே என்றும்
+                        சந்தோஷமாக வாழணும். ❤️
+
+                    </p>
+
+
+                    <b>
+                        — Happy Married Life
+                        Akka & Mama ❤️
+                    </b>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             FINAL MESSAGE
+        ====================================== -->
+
         <section class="final-section">
 
             <div class="final-overlay"></div>
+
 
             <div class="final-content">
 
@@ -353,56 +692,103 @@
                     ❤️ FROM YOUR THAMBI
                 </span>
 
+
                 <h2>
-                    ஒரு சின்ன<br>
+
+                    ஒரு சின்ன
+
+                    <br>
+
                     Heart-Touching Message...
+
                 </h2>
 
-                <div class="heart">
+
+                <div class="big-heart">
                     ❤️
                 </div>
 
-                <p>
+
+                <p class="final-akka">
                     Akka...
                 </p>
 
+
                 <p>
-                    நீங்க எனக்கு ஒரு Akka மட்டும் இல்ல...
+
+                    நீங்க எனக்கு
+                    ஒரு Akka மட்டும் இல்ல...
+
+                    <br><br>
+
                     என் வாழ்க்கையில்
-                    எப்போதும் ஒரு special person. ❤️
+                    எப்போதும் ஒரு
+                    special person. ❤️
+
                 </p>
 
+
                 <p>
-                    உங்களுடைய சந்தோஷத்தைப் பார்க்கும்போது
+
+                    உங்களுடைய சந்தோஷத்தை
+                    பார்க்கும்போது
                     எனக்கும் சந்தோஷமாக இருக்கும்.
+
                 </p>
 
+
                 <p>
+
                     Mama உங்களை எப்போதும்
-                    இப்படியே சந்தோஷமாக பார்த்துக்கொள்ளணும்...
+                    இப்படியே சந்தோஷமாக
+                    பார்த்துக்கொள்ளணும்...
+
+                    <br><br>
+
                     நீங்களும் Mama-வை
-                    இப்படியே அன்போடு பார்த்துக்கணும்.
+                    இப்படியே அன்போடு
+                    பார்த்துக்கணும்.
+
                 </p>
 
+
                 <p>
+
                     வாழ்க்கையில் எத்தனை வருடங்கள்
                     கடந்தாலும்,
+
+                    <br><br>
+
                     உங்கள் இருவருடைய Love
-                    இன்னும் இன்னும் அதிகமாகட்டும்.
+                    இன்னும் இன்னும்
+                    அதிகமாகட்டும்.
+
                 </p>
 
-                <p class="special-message">
-                    <strong>
-                        "உங்கள் சந்தோஷமான வாழ்க்கையை
-                        பார்த்துக்கொண்டே இருக்கணும்...
-                        அதுதான் ஒரு Thambi-ஆ
-                        எனக்கு இருக்கும் ஆசை." ❤️
-                    </strong>
-                </p>
+
+                <div class="final-highlight">
+
+                    "உங்கள் சந்தோஷமான வாழ்க்கையை
+                    பார்த்துக்கொண்டே இருக்கணும்...
+
+                    <br><br>
+
+                    அதுதான் ஒரு Thambi-ஆ
+                    எனக்கு இருக்கும் ஆசை." ❤️
+
+                </div>
+
 
                 <div class="signature">
-                    With Lots of Love,<br>
-                    <strong>உங்கள் அன்பு Thambi ELUMALAI</strong>
+
+                    With Lots of Love,
+
+                    <br>
+
+                    <strong>
+                        உங்கள் Thambi ELUMALAI ❤️
+                    </strong>
+
                 </div>
 
             </div>
@@ -410,65 +796,163 @@
         </section>
 
 
-        <!-- FEEDBACK -->
-        <section class="feedback-section section">
+
+        <!-- =====================================
+             AKKA FEEDBACK
+        ====================================== -->
+
+        <section
+            class="feedback-section section"
+            id="feedback"
+        >
 
             <span class="badge">
-                💌 A MESSAGE FOR THAMBI
+                💌 A MESSAGE FROM AKKA
             </span>
 
+
             <h2>
-                Akka-வின் Feedback ❤️
+                Akka → Thambi ❤️
             </h2>
 
+
             <p class="feedback-intro">
+
                 இந்த website-ஐ பார்த்த பிறகு...
-                Akka Thambi-க்கு சொல்வது போல ❤️
+
+                <br>
+
+                Akka உனக்கு சொல்வது போல ❤️
+
             </p>
 
-            <div class="feedback-card">
 
-                <div class="quote">
-                    “
+            <!-- CHAT -->
+
+            <div class="chat-box">
+
+
+                <!-- CHAT HEADER -->
+
+                <div class="chat-header">
+
+                    <div class="profile-circle">
+                        ❤️
+                    </div>
+
+
+                    <div class="profile-info">
+
+                        <strong>
+                            Akka ❤️
+                        </strong>
+
+                        <small>
+                            online
+                        </small>
+
+                    </div>
+
                 </div>
 
-                <p>
-                    Elumalai...
-                </p>
 
-                <p>
-                    நீ இவ்வளவு அழகாக
-                    எங்களை நினைத்து இந்த gift
-                    கொடுத்திருப்பது ரொம்ப special.
-                </p>
 
-                <p>
-                    Photos மட்டும் இல்லாமல்,
-                    ஒவ்வொரு photo-க்கும்
-                    இவ்வளவு அழகான wishes
-                    எழுதியிருக்க...
-                    அதை படிக்கும்போது
-                    உண்மையிலேயே ரொம்ப சந்தோஷமா இருந்தது. ❤️
-                </p>
+                <!-- TYPING -->
 
-                <p>
-                    நீ எப்போதும் இப்படியே
-                    எங்களை அன்பாக நினைத்துக்கிட்டு
-                    இருக்கணும்.
-                </p>
+                <div
+                    id="typingText"
+                    class="typing-text"
+                >
 
-                <p>
-                    உன்ன மாதிரி ஒரு Thambi
-                    கிடைத்தது எங்களுக்கு
-                    ரொம்ப பெரிய blessing.
-                </p>
+                    Akka is typing...
 
-                <p class="feedback-heart">
-                    Love You Thambi ❤️
-                </p>
+                </div>
 
-                <div class="feedback-sign">
-                    — Akka ❤️
+
+
+                <!-- FEEDBACK MESSAGE -->
+
+                <div
+                    id="feedbackMessage"
+                    class="feedback-message"
+                >
+
+                    <p>
+                        <strong>
+                            Elumalai... ❤️
+                        </strong>
+                    </p>
+
+
+                    <p>
+
+                        இந்த surprise-ஐ நான்
+                        எதிர்பார்க்கவே இல்லை.
+
+                        <br><br>
+
+                        ஒவ்வொரு photo-வையும்
+                        scratch பண்ணும்போது,
+                        அதுக்குள்ள நீ வைத்திருந்த
+                        message-ஐ பார்க்கும்போது
+                        ரொம்ப emotional-ஆ இருந்தது.
+
+                    </p>
+
+
+                    <p>
+
+                        எங்களை இவ்வளவு அன்பாக
+                        நினைத்து இந்த website-ஐ
+                        உருவாக்கியதுக்கு
+                        என்ன சொல்லணும்னே தெரியல...
+
+                    </p>
+
+
+                    <p>
+
+                        ஒரு விஷயம் மட்டும் சொல்லணும்...
+
+                        <br><br>
+
+                        <strong>
+
+                            நீ என் Thambi-ஆ கிடைத்தது
+                            எனக்கு ரொம்ப பெரிய blessing. ❤️
+
+                        </strong>
+
+                    </p>
+
+
+                    <p>
+
+                        எப்போதும் இப்படியே
+                        எங்களை அன்பாக
+                        நினைத்துக்கிட்டு இரு.
+
+                    </p>
+
+
+                    <p class="love-text">
+
+                        Love You So Much Thambi ❤️
+
+                    </p>
+
+
+                    <p class="ak-sign">
+
+                        — உன் Akka ❤️
+
+                    </p>
+
+                </div>
+
+
+                <div class="heart-reaction">
+                    ❤️
                 </div>
 
             </div>
@@ -476,33 +960,60 @@
         </section>
 
 
-        <!-- END -->
+
+        <!-- =====================================
+             END
+        ====================================== -->
+
         <section class="end-section">
 
             <div class="end-heart">
                 ❤️
             </div>
 
+
             <h2>
                 Happy Married Life
             </h2>
+
 
             <h3>
                 Akka & Mama 💍
             </h3>
 
+
             <p>
+
                 Forever Happy...
+
+                <br>
+
                 Forever Together...
+
+                <br>
+
                 Forever Loved... ❤️
+
             </p>
 
+
             <small>
-                This little website was made with love
-                by your Thambi ELUMALAI.
+
+                This little website was made
+                with lots of love
+
+                <br>
+
+                by your Thambi
+
+                <strong>
+                    ELUMALAI
+                </strong> ❤️
+
             </small>
 
         </section>
+
 
     </main>
 
@@ -510,4 +1021,5 @@
     <script src="script.js"></script>
 
 </body>
+
 </html>
