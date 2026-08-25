@@ -1,3 +1,7 @@
+/* =========================================
+   RESET
+========================================= */
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -12,6 +16,7 @@ html {
 
 body {
     background: #080207;
+
     color: #ffffff;
 
     font-family:
@@ -33,6 +38,7 @@ button {
 }
 
 
+
 /* =========================================
    OPENING
 ========================================= */
@@ -40,6 +46,7 @@ button {
 .opening {
 
     min-height: 100vh;
+
     min-height: 100dvh;
 
     display: flex;
@@ -149,7 +156,7 @@ button {
 }
 
 
-#openGift {
+.open-gift-button {
 
     margin-top: 30px;
 
@@ -179,16 +186,26 @@ button {
         0 15px 45px
         rgba(255, 0, 100, 0.35);
 
-    transition: 0.3s;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 
 }
 
 
-#openGift:hover {
+.open-gift-button:hover {
 
     transform:
         translateY(-3px)
         scale(1.04);
+
+}
+
+
+.open-gift-button:active {
+
+    transform:
+        scale(0.96);
 
 }
 
@@ -202,6 +219,12 @@ button {
     line-height: 1.7;
 
 }
+
+
+.from b {
+    color: #ffabc6;
+}
+
 
 
 /* =========================================
@@ -223,8 +246,9 @@ button {
 }
 
 
+
 /* =========================================
-   HEADER
+   TOP HEADER
 ========================================= */
 
 .top {
@@ -268,6 +292,7 @@ button {
         clamp(25px, 7vw, 40px);
 
 }
+
 
 
 /* =========================================
@@ -331,8 +356,9 @@ button {
 }
 
 
+
 /* =========================================
-   MEMORY
+   MEMORY PAGE
 ========================================= */
 
 .memory-page {
@@ -370,6 +396,7 @@ button {
 }
 
 
+
 /* =========================================
    SCRATCH BOX
 ========================================= */
@@ -399,8 +426,9 @@ button {
 }
 
 
+
 /* =========================================
-   PHOTO
+   MEMORY PHOTO
 ========================================= */
 
 #memoryImage {
@@ -410,6 +438,7 @@ button {
     inset: 0;
 
     width: 100%;
+
     height: 100%;
 
     object-fit: cover;
@@ -429,6 +458,7 @@ button {
 }
 
 
+
 /* =========================================
    SCRATCH CANVAS
 ========================================= */
@@ -440,6 +470,7 @@ button {
     inset: 0;
 
     width: 100%;
+
     height: 100%;
 
     display: block;
@@ -458,7 +489,10 @@ button {
 
     -webkit-user-drag: none;
 
+    contain: strict;
+
 }
+
 
 
 /* =========================================
@@ -470,6 +504,7 @@ button {
     position: absolute;
 
     left: 50%;
+
     top: 50%;
 
     transform:
@@ -510,6 +545,7 @@ button {
 
     }
 
+
     50% {
 
         opacity: 0.55;
@@ -536,6 +572,7 @@ button {
 }
 
 
+
 /* =========================================
    EMOJI BUBBLES
 ========================================= */
@@ -559,7 +596,7 @@ button {
 
     position: absolute;
 
-    bottom: -45px;
+    bottom: -60px;
 
     display: block;
 
@@ -572,14 +609,11 @@ button {
     filter:
         drop-shadow(
             0 3px 8px
-            rgba(0, 0, 0, 0.5)
+            rgba(0, 0, 0, 0.45)
         );
 
     animation:
-        emojiFloat
-        4s
-        ease-out
-        forwards;
+        emojiFloat 4s ease-out forwards;
 
 }
 
@@ -601,11 +635,13 @@ button {
 
     }
 
+
     15% {
 
         opacity: 1;
 
     }
+
 
     50% {
 
@@ -613,8 +649,8 @@ button {
 
         transform:
             translate3d(
-                var(--drift),
-                calc(var(--rise) * -0.5),
+                15px,
+                -45%,
                 0
             )
             scale(1.05)
@@ -622,14 +658,15 @@ button {
 
     }
 
+
     100% {
 
         opacity: 0;
 
         transform:
             translate3d(
-                calc(var(--drift) * -1),
-                calc(var(--rise) * -1),
+                -20px,
+                -120%,
                 0
             )
             scale(1.25)
@@ -640,8 +677,9 @@ button {
 }
 
 
+
 /* =========================================
-   MESSAGE
+   MESSAGE BOX
 ========================================= */
 
 .message-box {
@@ -665,9 +703,7 @@ button {
         rgba(255, 160, 190, 0.2);
 
     animation:
-        messageAppear
-        0.8s
-        ease;
+        messageAppear 0.8s ease;
 
 }
 
@@ -682,6 +718,7 @@ button {
             translateY(25px);
 
     }
+
 
     to {
 
@@ -739,6 +776,7 @@ button {
 }
 
 
+
 /* =========================================
    NEXT BUTTON
 ========================================= */
@@ -775,7 +813,8 @@ button {
         0 10px 30px
         rgba(255, 0, 100, 0.25);
 
-    transition: 0.3s;
+    transition:
+        transform 0.3s ease;
 
 }
 
@@ -796,6 +835,7 @@ button {
 }
 
 
+
 /* =========================================
    FINAL PAGE
 ========================================= */
@@ -803,6 +843,8 @@ button {
 .final-page {
 
     min-height: 100vh;
+
+    min-height: 100dvh;
 
     position: relative;
 
@@ -890,11 +932,16 @@ button {
 
     0%,
     100% {
+
         transform: scale(1);
+
     }
 
+
     50% {
+
         transform: scale(1.2);
+
     }
 
 }
@@ -953,67 +1000,13 @@ button {
 }
 
 
-/* =========================================
-   FINAL FLOATING EMOJIS
-========================================= */
-
-.final-floating-heart {
-
-    position: fixed;
-
-    bottom: -50px;
-
-    z-index: 9999;
-
-    pointer-events: none;
-
-    font-size: 25px;
-
-    animation:
-        finalFloat
-        5s
-        ease-out
-        forwards;
-
-}
-
-
-@keyframes finalFloat {
-
-    0% {
-
-        opacity: 0;
-
-        transform:
-            translateY(0)
-            scale(0.5);
-
-    }
-
-    15% {
-
-        opacity: 1;
-
-    }
-
-    100% {
-
-        opacity: 0;
-
-        transform:
-            translateY(-100vh)
-            scale(1.4);
-
-    }
-
-}
-
 
 /* =========================================
    MOBILE
 ========================================= */
 
 @media (max-width: 600px) {
+
 
     .opening {
 
@@ -1084,11 +1077,13 @@ button {
 }
 
 
+
 /* =========================================
-   VERY SMALL PHONES
+   SMALL PHONES
 ========================================= */
 
 @media (max-width: 380px) {
+
 
     .scratch-text {
 
@@ -1116,6 +1111,7 @@ button {
 }
 
 
+
 /* =========================================
    PERFORMANCE
 ========================================= */
@@ -1123,7 +1119,8 @@ button {
 .gift,
 .heart {
 
-    will-change: transform;
+    will-change:
+        transform;
 
 }
 
@@ -1139,8 +1136,11 @@ button {
 
 @media (prefers-reduced-motion: reduce) {
 
+
     *,
+
     *::before,
+
     *::after {
 
         animation-duration:
