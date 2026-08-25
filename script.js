@@ -1,62 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-
     /* =========================================
        MEMORIES
     ========================================= */
 
     const memories = [
-
         {
             image: "photo1.jpg",
-
-            title:
-                "ஒரு அழகான நினைவு ❤️",
-
+            title: "ஒரு அழகான நினைவு ❤️",
             message:
                 "Akka & Mama... உங்கள் வாழ்க்கை முழுவதும் அன்பும் சந்தோஷமும் நிறைந்திருக்கட்டும். ❤️"
         },
-
         {
             image: "photo2.jpg",
-
-            title:
-                "இன்னொரு அழகான தருணம் 💕",
-
+            title: "இன்னொரு அழகான தருணம் 💕",
             message:
                 "எத்தனை வருடங்கள் ஆனாலும் உங்கள் அன்பும் smile-உம் இப்படியே இருக்கட்டும். ❤️"
         },
-
         {
             image: "photo3.png",
-
-            title:
-                "Love + Friendship ❤️",
-
+            title: "Love + Friendship ❤️",
             message:
                 "Husband & Wife-ஆக மட்டும் இல்லாமல், எப்போதும் best friends-ஆகவும் இருங்கள். ❤️"
         },
-
         {
             image: "photo4.jpg",
-
-            title:
-                "உங்கள் சந்தோஷம் 💖",
-
+            title: "உங்கள் சந்தோஷம் 💖",
             message:
                 "உங்கள் வீட்டில் சிரிப்பும், சந்தோஷமும், அன்பும் எப்போதும் நிறைந்திருக்கட்டும். ❤️"
         },
-
         {
             image: "photo5.jpg",
-
-            title:
-                "The Final Memory 💞",
-
+            title: "The Final Memory 💞",
             message:
                 "இன்னும் பல வருடங்கள், பல Anniversary-கள், பல அழகான memories-ஐ இருவரும் சேர்ந்து உருவாக்குங்கள். ❤️"
         }
-
     ];
 
 
@@ -65,111 +43,84 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================================= */
 
     let current = 0;
-
     let revealed = false;
-
     let scratching = false;
 
     let lastX = 0;
-
     let lastY = 0;
 
     let drawingFrame = null;
-
     let pendingPoint = null;
 
-    let percentageTimer = null;
+    let scratchCheckTimer = null;
 
-
-    /*
-     * Actual scratch percentage.
-     */
-
-    const REQUIRED_PERCENTAGE = 50;
-
-
-    /*
-     * Brush size.
-     */
-
-    const BRUSH_SIZE = 52;
+    const BRUSH_SIZE = 58;
+    const REVEAL_PERCENTAGE = 50;
 
 
     /* =========================================
        ELEMENTS
     ========================================= */
 
-    const opening =
-        document.getElementById("opening");
+    const opening = document.getElementById("opening");
+    const app = document.getElementById("app");
 
-    const app =
-        document.getElementById("app");
+    const openGift = document.getElementById("openGift");
+    const music = document.getElementById("bgMusic");
 
-    const openGift =
-        document.getElementById("openGift");
+    const memoryImage = document.getElementById("memoryImage");
+    const canvas = document.getElementById("scratchCanvas");
 
-    const music =
-        document.getElementById("bgMusic");
+    const memoryNumber = document.getElementById("memoryNumber");
+    const memoryTitle = document.getElementById("memoryTitle");
 
-    const memoryPage =
-        document.getElementById("memoryPage");
+    const scratchText = document.getElementById("scratchText");
 
-    const memoryImage =
-        document.getElementById("memoryImage");
+    const messageBox = document.getElementById("messageBox");
+    const specialMessage = document.getElementById("specialMessage");
+    const messageNumber = document.getElementById("messageNumber");
 
-    const canvas =
-        document.getElementById("scratchCanvas");
+    const nextButton = document.getElementById("nextButton");
 
-    const ctx =
-        canvas.getContext("2d", {
-            willReadFrequently: true
-        });
+    const progressText = document.getElementById("progressText");
+    const progressFill = document.getElementById("progressFill");
 
-    const memoryNumber =
-        document.getElementById("memoryNumber");
+    const finalPage = document.getElementById("finalPage");
 
-    const memoryTitle =
-        document.getElementById("memoryTitle");
+    const emojiBubbles = document.getElementById("emojiBubbles");
 
-    const scratchText =
-        document.getElementById("scratchText");
-
-    const messageBox =
-        document.getElementById("messageBox");
-
-    const specialMessage =
-        document.getElementById("specialMessage");
-
-    const messageNumber =
-        document.getElementById("messageNumber");
-
-    const nextButton =
-        document.getElementById("nextButton");
-
-    const progressText =
-        document.getElementById("progressText");
-
-    const progressFill =
-        document.getElementById("progressFill");
-
-    const finalPage =
-        document.getElementById("finalPage");
-
-    const emojiBubbles =
-        document.getElementById("emojiBubbles");
+    const ctx = canvas ? canvas.getContext("2d") : null;
 
 
     /* =========================================
-       DPR
+       SAFETY CHECK
+    ========================================= */
+
+    if (!openGift) {
+        console.error("Open Gift button not found!");
+        return;
+    }
+
+    if (!app) {
+        console.error("App not found!");
+        return;
+    }
+
+    if (!canvas || !ctx) {
+        console.error("Scratch canvas not found!");
+        return;
+    }
+
+
+    /* =========================================
+       DEVICE PIXEL RATIO
     ========================================= */
 
     function getDPR() {
-
         return Math.min(
             window.devicePixelRatio || 1,
             1.5
         );
-
     }
 
 
@@ -177,38 +128,36 @@ document.addEventListener("DOMContentLoaded", () => {
        OPEN GIFT
     ========================================= */
 
-    openGift.addEventListener(
-        "click",
-        () => {
+    openGift.addEventListener("click", () => {
 
-            opening.classList.add("hidden");
+        console.log("Gift button clicked!");
 
-            app.classList.remove("hidden");
+        opening.classList.add("hidden");
+        app.classList.remove("hidden");
 
+        /* MUSIC */
 
-            /*
-             * Music
-             */
+        if (music) {
 
             music.volume = 0.65;
 
-            const playPromise =
-                music.play();
+            const playPromise = music.play();
 
             if (
                 playPromise &&
                 typeof playPromise.catch === "function"
             ) {
-
-                playPromise.catch(() => {});
-
+                playPromise.catch(() => {
+                    console.log("Music autoplay blocked.");
+                });
             }
-
-
-            loadMemory(0);
-
         }
-    );
+
+        /* FIRST MEMORY */
+
+        loadMemory(0);
+
+    });
 
 
     /* =========================================
@@ -217,80 +166,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function loadMemory(index) {
 
+        if (index < 0 || index >= memories.length) {
+            return;
+        }
+
         current = index;
 
         revealed = false;
-
         scratching = false;
 
         lastX = 0;
-
         lastY = 0;
 
         pendingPoint = null;
 
-
-        /*
-         * Stop percentage checker.
-         */
-
-        if (percentageTimer !== null) {
-
-            clearTimeout(percentageTimer);
-
-            percentageTimer = null;
-
-        }
-
-
-        /*
-         * Cancel animation.
-         */
-
         if (drawingFrame !== null) {
 
-            cancelAnimationFrame(
-                drawingFrame
-            );
+            cancelAnimationFrame(drawingFrame);
 
             drawingFrame = null;
+        }
 
+        if (scratchCheckTimer) {
+
+            clearTimeout(scratchCheckTimer);
+
+            scratchCheckTimer = null;
         }
 
 
-        const item =
-            memories[index];
+        const item = memories[index];
 
 
-        /* ================================
-           RESET MESSAGE
-        ================================= */
+        /* MESSAGE */
 
         messageBox.classList.add("hidden");
 
-        specialMessage.innerText =
-            item.message;
+        specialMessage.innerText = item.message;
 
         messageNumber.innerText =
             "SPECIAL MESSAGE " +
             String(index + 1).padStart(2, "0");
 
 
-        /* ================================
-           TITLE
-        ================================= */
+        /* TITLE */
 
         memoryNumber.innerText =
             "MEMORY " +
             String(index + 1).padStart(2, "0");
 
-        memoryTitle.innerText =
-            item.title;
+        memoryTitle.innerText = item.title;
 
 
-        /* ================================
-           PROGRESS
-        ================================= */
+        /* PROGRESS */
 
         progressText.innerText =
             `Memory ${index + 1} of ${memories.length}`;
@@ -299,13 +227,9 @@ document.addEventListener("DOMContentLoaded", () => {
             `${((index + 1) / memories.length) * 100}%`;
 
 
-        /* ================================
-           BUTTON
-        ================================= */
+        /* NEXT BUTTON */
 
-        if (
-            index === memories.length - 1
-        ) {
+        if (index === memories.length - 1) {
 
             nextButton.innerText =
                 "❤️ Final Message";
@@ -314,143 +238,93 @@ document.addEventListener("DOMContentLoaded", () => {
 
             nextButton.innerText =
                 "Next Memory ❤️";
-
         }
 
 
-        /* ================================
-           RESET SCRATCH UI
-        ================================= */
+        /* RESET SCRATCH UI */
 
-        scratchText.style.display =
-            "block";
+        scratchText.style.display = "block";
+        scratchText.style.opacity = "1";
 
-        scratchText.style.opacity =
-            "1";
-
-        scratchText.style.transition =
-            "none";
+        canvas.style.display = "block";
+        canvas.style.opacity = "1";
+        canvas.style.pointerEvents = "auto";
 
 
-        canvas.style.display =
-            "block";
+        /* REMOVE OLD EMOJIS */
 
-        canvas.style.opacity =
-            "1";
-
-        canvas.style.transition =
-            "none";
-
-        canvas.style.pointerEvents =
-            "auto";
+        if (emojiBubbles) {
+            emojiBubbles.innerHTML = "";
+        }
 
 
-        /* ================================
-           CLEAR EMOJIS
-        ================================= */
-
-        emojiBubbles.innerHTML = "";
-
-
-        /* ================================
-           LOAD IMAGE
-        ================================= */
+        /* LOAD IMAGE */
 
         memoryImage.onload = () => {
 
-            requestAnimationFrame(
-                setupScratch
-            );
+            requestAnimationFrame(() => {
+                setupScratch();
+            });
 
         };
 
-
-        memoryImage.src =
-            item.image;
+        memoryImage.src = item.image;
 
 
-        /*
-         * Cached image.
-         */
+        /* CACHE */
 
         if (memoryImage.complete) {
 
-            requestAnimationFrame(
-                setupScratch
-            );
-
+            requestAnimationFrame(() => {
+                setupScratch();
+            });
         }
 
 
-        /* ================================
-           PRELOAD NEXT
-        ================================= */
+        /* PRELOAD NEXT IMAGE */
 
-        if (
-            index <
-            memories.length - 1
-        ) {
+        if (index < memories.length - 1) {
 
-            const nextImage =
-                new Image();
+            const nextImage = new Image();
 
             nextImage.src =
                 memories[index + 1].image;
-
         }
 
     }
 
 
     /* =========================================
-       SETUP SCRATCH
+       SETUP SCRATCH CANVAS
     ========================================= */
 
     function setupScratch() {
 
-        const box =
-            canvas.parentElement;
+        const box = canvas.parentElement;
 
         if (!box) {
             return;
         }
 
+        const rect = box.getBoundingClientRect();
 
-        const rect =
-            box.getBoundingClientRect();
+        const width = Math.round(rect.width);
+        const height = Math.round(rect.height);
 
-
-        const width =
-            Math.round(rect.width);
-
-        const height =
-            Math.round(rect.height);
-
-
-        if (
-            width <= 0 ||
-            height <= 0
-        ) {
-
+        if (width <= 0 || height <= 0) {
             return;
-
         }
 
-
-        const dpr =
-            getDPR();
+        const dpr = getDPR();
 
 
-        /* ================================
-           CANVAS SIZE
-        ================================= */
+        /* CANVAS SIZE */
 
         canvas.width =
             Math.round(width * dpr);
 
         canvas.height =
             Math.round(height * dpr);
-
 
         canvas.style.width =
             width + "px";
@@ -459,9 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
             height + "px";
 
 
-        /* ================================
-           SCALE
-        ================================= */
+        /* TRANSFORM */
 
         ctx.setTransform(
             dpr,
@@ -473,13 +345,11 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
+        /* COVER */
+
         ctx.globalCompositeOperation =
             "source-over";
 
-
-        /* ================================
-           COVER
-        ================================= */
 
         const gradient =
             ctx.createLinearGradient(
@@ -488,7 +358,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 width,
                 height
             );
-
 
         gradient.addColorStop(
             0,
@@ -505,10 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "#633748"
         );
 
-
-        ctx.fillStyle =
-            gradient;
-
+        ctx.fillStyle = gradient;
 
         ctx.fillRect(
             0,
@@ -518,9 +384,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* ================================
-           COVER TEXT
-        ================================= */
+        /* COVER TEXT */
 
         ctx.fillStyle =
             "rgba(255,255,255,0.25)";
@@ -528,12 +392,8 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.font =
             "bold 20px Arial";
 
-        ctx.textAlign =
-            "center";
-
-        ctx.textBaseline =
-            "middle";
-
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
 
         ctx.fillText(
             "✨ SCRATCH HERE ✨",
@@ -542,31 +402,25 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* ================================
-           ERASE MODE
-        ================================= */
+        /* ERASE MODE */
 
         ctx.globalCompositeOperation =
             "destination-out";
 
-        ctx.lineCap =
-            "round";
-
-        ctx.lineJoin =
-            "round";
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
 
     }
 
 
     /* =========================================
-       GET POSITION
+       GET POINTER POSITION
     ========================================= */
 
     function getPosition(event) {
 
         const rect =
             canvas.getBoundingClientRect();
-
 
         return {
 
@@ -598,10 +452,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "destination-out";
 
 
-        /*
-         * Line
-         */
-
         ctx.beginPath();
 
         ctx.moveTo(
@@ -617,18 +467,13 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.lineWidth =
             BRUSH_SIZE;
 
-        ctx.lineCap =
-            "round";
-
-        ctx.lineJoin =
-            "round";
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
 
         ctx.stroke();
 
 
-        /*
-         * Brush circle
-         */
+        /* ROUND BRUSH */
 
         ctx.beginPath();
 
@@ -644,55 +489,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         lastX = x;
-
         lastY = y;
 
 
-        /*
-         * Check percentage.
-         */
+        /* CHECK ACTUAL SCRATCH % */
 
-        schedulePercentageCheck();
+        scheduleScratchCheck();
 
     }
 
 
     /* =========================================
-       SCHEDULE PERCENTAGE CHECK
+       SCRATCH PERCENTAGE CHECK
     ========================================= */
 
-    function schedulePercentageCheck() {
+    function scheduleScratchCheck() {
 
-        if (revealed) {
+        if (scratchCheckTimer) {
             return;
         }
 
+        scratchCheckTimer = setTimeout(() => {
 
-        /*
-         * Don't check canvas on every
-         * pointer movement.
-         */
+            scratchCheckTimer = null;
 
-        if (percentageTimer !== null) {
-            return;
-        }
+            checkScratchPercentage();
 
-
-        percentageTimer =
-            setTimeout(() => {
-
-                percentageTimer = null;
-
-                checkScratchPercentage();
-
-            }, 300);
+        }, 120);
 
     }
 
-
-    /* =========================================
-       CHECK ACTUAL SCRATCH %
-    ========================================= */
 
     function checkScratchPercentage() {
 
@@ -701,17 +527,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        const width =
-            canvas.width;
-
-        const height =
-            canvas.height;
+        const width = canvas.width;
+        const height = canvas.height;
 
 
         /*
-         * Sample every 8th pixel.
+         * Sample every 32nd byte.
          *
-         * This keeps mobile performance good.
+         * Alpha channel is every 4th byte.
          */
 
         const imageData =
@@ -723,45 +546,34 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        const data =
-            imageData.data;
-
-
         let transparentPixels = 0;
-
         let sampledPixels = 0;
 
 
         /*
-         * RGBA = 4 values.
-         *
-         * Every 8th pixel.
+         * Every 8 pixels
          */
 
-        const pixelStep = 8;
-
-
         for (
-            let pixel = 0;
-            pixel < width * height;
-            pixel += pixelStep
+            let i = 3;
+            i < imageData.data.length;
+            i += 32
         ) {
-
-            const alphaIndex =
-                pixel * 4 + 3;
-
 
             sampledPixels++;
 
 
             if (
-                data[alphaIndex] < 50
+                imageData.data[i] < 50
             ) {
 
                 transparentPixels++;
-
             }
+        }
 
+
+        if (sampledPixels === 0) {
+            return;
         }
 
 
@@ -772,13 +584,15 @@ document.addEventListener("DOMContentLoaded", () => {
             ) * 100;
 
 
-        /*
-         * 50% reached.
-         */
+        console.log(
+            "Scratch:",
+            percentage.toFixed(1) + "%"
+        );
+
 
         if (
             percentage >=
-            REQUIRED_PERCENTAGE
+            REVEAL_PERCENTAGE
         ) {
 
             revealMessage();
@@ -798,9 +612,7 @@ document.addEventListener("DOMContentLoaded", () => {
             revealed ||
             !scratching
         ) {
-
             return;
-
         }
 
 
@@ -808,42 +620,32 @@ document.addEventListener("DOMContentLoaded", () => {
             getPosition(event);
 
 
-        pendingPoint =
-            pos;
+        pendingPoint = pos;
 
 
-        if (
-            drawingFrame !== null
-        ) {
-
+        if (drawingFrame !== null) {
             return;
-
         }
 
 
         drawingFrame =
             requestAnimationFrame(() => {
 
-                drawingFrame =
-                    null;
+                drawingFrame = null;
 
 
                 if (
                     !pendingPoint ||
                     revealed
                 ) {
-
                     return;
-
                 }
 
 
                 const point =
                     pendingPoint;
 
-
-                pendingPoint =
-                    null;
+                pendingPoint = null;
 
 
                 drawScratch(
@@ -871,7 +673,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             event.preventDefault();
 
-
             scratching = true;
 
 
@@ -880,7 +681,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             lastX = pos.x;
-
             lastY = pos.y;
 
 
@@ -897,9 +697,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
             } catch (error) {
-
-                /* Ignore */
-
+                console.log(error);
             }
 
         }
@@ -921,10 +719,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             event.preventDefault();
 
-
-            scheduleScratch(
-                event
-            );
+            scheduleScratch(event);
 
         }
     );
@@ -936,9 +731,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     canvas.addEventListener(
         "pointerup",
-        () => {
+        (event) => {
 
             scratching = false;
+
+            try {
+
+                canvas.releasePointerCapture(
+                    event.pointerId
+                );
+
+            } catch (error) {
+                /* ignore */
+            }
 
         }
     );
@@ -955,7 +760,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================
-       REVEAL
+       REVEAL MESSAGE
     ========================================= */
 
     function revealMessage() {
@@ -972,24 +777,15 @@ document.addEventListener("DOMContentLoaded", () => {
         pendingPoint = null;
 
 
-        /*
-         * Stop percentage check.
-         */
-
-        if (percentageTimer !== null) {
+        if (scratchCheckTimer) {
 
             clearTimeout(
-                percentageTimer
+                scratchCheckTimer
             );
 
-            percentageTimer = null;
-
+            scratchCheckTimer = null;
         }
 
-
-        /*
-         * Cancel animation.
-         */
 
         if (drawingFrame !== null) {
 
@@ -998,50 +794,34 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             drawingFrame = null;
-
         }
 
 
-        /* ================================
-           EMOJI
-        ================================= */
-
-        createEmojiBubbles();
-
-
-        /* ================================
-           FADE SCRATCH COVER
-        ================================= */
+        /* FADE CANVAS */
 
         canvas.style.transition =
-            "opacity 0.6s ease";
+            "opacity 0.45s ease";
 
-        canvas.style.opacity =
-            "0";
-
-
-        /* ================================
-           HIDE TEXT
-        ================================= */
-
-        scratchText.style.transition =
-            "opacity 0.35s ease";
-
-        scratchText.style.opacity =
-            "0";
-
-
-        /*
-         * Disable canvas.
-         */
+        canvas.style.opacity = "0";
 
         canvas.style.pointerEvents =
             "none";
 
 
-        /* ================================
-           REMOVE SCRATCH LAYER
-        ================================= */
+        /* HIDE TEXT */
+
+        scratchText.style.transition =
+            "opacity 0.3s ease";
+
+        scratchText.style.opacity = "0";
+
+
+        /* EMOJIS */
+
+        createEmojiBubbles();
+
+
+        /* REMOVE CANVAS */
 
         setTimeout(() => {
 
@@ -1051,12 +831,10 @@ document.addEventListener("DOMContentLoaded", () => {
             scratchText.style.display =
                 "none";
 
-        }, 650);
+        }, 500);
 
 
-        /* ================================
-           MESSAGE
-        ================================= */
+        /* SHOW MESSAGE */
 
         setTimeout(() => {
 
@@ -1070,8 +848,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 block: "center"
             });
 
-
-        }, 750);
+        }, 650);
 
     }
 
@@ -1082,12 +859,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function createEmojiBubbles() {
 
+        if (!emojiBubbles) {
+            return;
+        }
+
+
         emojiBubbles.innerHTML = "";
 
 
         const emojis = [
-
-            "❤️",
             "❤️",
             "💕",
             "💖",
@@ -1100,7 +880,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "😍",
             "😘",
             "✨",
-            "✨",
             "🌸",
             "💐",
             "🎉",
@@ -1109,21 +888,14 @@ document.addEventListener("DOMContentLoaded", () => {
             "🫶",
             "😊",
             "❤️",
-            "💕",
-            "💖",
-            "🥰",
-            "✨",
+            "💋",
             "🌹",
-            "💗",
-            "💞",
+            "⭐",
             "🎊"
-
         ];
 
 
-        /*
-         * 30 emojis.
-         */
+        /* MANY EMOJIS */
 
         for (
             let i = 0;
@@ -1148,18 +920,145 @@ document.addEventListener("DOMContentLoaded", () => {
                 ];
 
 
-            /*
-             * Random position.
-             */
-
             bubble.style.left =
+                Math.random() * 100 + "%";
+
+
+            bubble.style.fontSize =
                 (
-                    Math.random() * 96
-                ) + "%";
+                    20 +
+                    Math.random() * 22
+                ) + "px";
 
 
-            /*
-             * Random size.
-             */
+            bubble.style.animationDelay =
+                Math.random() * 1.5 + "s";
 
-            const s
+
+            bubble.style.animationDuration =
+                (
+                    3 +
+                    Math.random() * 2
+                ) + "s";
+
+
+            emojiBubbles.appendChild(
+                bubble
+            );
+
+        }
+
+    }
+
+
+    /* =========================================
+       NEXT BUTTON
+    ========================================= */
+
+    nextButton.addEventListener(
+        "click",
+        () => {
+
+            console.log(
+                "Next button clicked"
+            );
+
+
+            if (!revealed) {
+
+                console.log(
+                    "Memory not revealed yet."
+                );
+
+                return;
+            }
+
+
+            /* FINAL MEMORY */
+
+            if (
+                current ===
+                memories.length - 1
+            ) {
+
+                app.classList.add(
+                    "hidden"
+                );
+
+                finalPage.classList.remove(
+                    "hidden"
+                );
+
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+
+                return;
+            }
+
+
+            /* NEXT MEMORY */
+
+            loadMemory(
+                current + 1
+            );
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+
+    /* =========================================
+       RESIZE
+    ========================================= */
+
+    let resizeTimer = null;
+
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            clearTimeout(
+                resizeTimer
+            );
+
+
+            resizeTimer =
+                setTimeout(() => {
+
+                    if (
+                        !revealed &&
+                        app &&
+                        !app.classList.contains(
+                            "hidden"
+                        )
+                    ) {
+
+                        setupScratch();
+
+                    }
+
+                }, 250);
+
+        }
+    );
+
+
+    /* =========================================
+       START
+    ========================================= */
+
+    console.log(
+        "Gift website loaded successfully ❤️"
+    );
+
+});
