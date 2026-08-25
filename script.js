@@ -1,163 +1,287 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+
     /* =========================================
        MEMORIES
     ========================================= */
 
     const memories = [
+
         {
             image: "photo1.jpg",
-            title: "ஒரு அழகான நினைவு ❤️",
+
+            title:
+                "ஒரு அழகான நினைவு ❤️",
+
             message:
                 "Akka & Mama... உங்கள் வாழ்க்கை முழுவதும் அன்பும் சந்தோஷமும் நிறைந்திருக்கட்டும். ❤️"
         },
+
+
         {
             image: "photo2.jpg",
-            title: "இன்னொரு அழகான தருணம் 💕",
+
+            title:
+                "இன்னொரு அழகான தருணம் 💕",
+
             message:
                 "எத்தனை வருடங்கள் ஆனாலும் உங்கள் அன்பும் smile-உம் இப்படியே இருக்கட்டும். ❤️"
         },
+
+
         {
             image: "photo3.png",
-            title: "Love + Friendship ❤️",
+
+            title:
+                "Love + Friendship ❤️",
+
             message:
                 "Husband & Wife-ஆக மட்டும் இல்லாமல், எப்போதும் best friends-ஆகவும் இருங்கள். ❤️"
         },
+
+
         {
             image: "photo4.jpg",
-            title: "உங்கள் சந்தோஷம் 💖",
+
+            title:
+                "உங்கள் சந்தோஷம் 💖",
+
             message:
                 "உங்கள் வீட்டில் சிரிப்பும், சந்தோஷமும், அன்பும் எப்போதும் நிறைந்திருக்கட்டும். ❤️"
         },
+
+
         {
             image: "photo5.jpg",
-            title: "The Final Memory 💞",
+
+            title:
+                "The Final Memory 💞",
+
             message:
                 "இன்னும் பல வருடங்கள், பல Anniversary-கள், பல அழகான memories-ஐ இருவரும் சேர்ந்து உருவாக்குங்கள். ❤️"
         }
+
     ];
 
-
-    /* =========================================
-       VARIABLES
-    ========================================= */
-
-    let current = 0;
-    let revealed = false;
-    let scratching = false;
-
-    let lastX = 0;
-    let lastY = 0;
-
-    let drawingFrame = null;
-    let pendingPoint = null;
-
-    let scratchCheckTimer = null;
-
-    const BRUSH_SIZE = 58;
-    const REVEAL_PERCENTAGE = 50;
 
 
     /* =========================================
        ELEMENTS
     ========================================= */
 
-    const opening = document.getElementById("opening");
-    const app = document.getElementById("app");
+    const opening =
+        document.getElementById("opening");
 
-    const openGift = document.getElementById("openGift");
-    const music = document.getElementById("bgMusic");
 
-    const memoryImage = document.getElementById("memoryImage");
-    const canvas = document.getElementById("scratchCanvas");
+    const app =
+        document.getElementById("app");
 
-    const memoryNumber = document.getElementById("memoryNumber");
-    const memoryTitle = document.getElementById("memoryTitle");
 
-    const scratchText = document.getElementById("scratchText");
+    const openGift =
+        document.getElementById("openGift");
 
-    const messageBox = document.getElementById("messageBox");
-    const specialMessage = document.getElementById("specialMessage");
-    const messageNumber = document.getElementById("messageNumber");
 
-    const nextButton = document.getElementById("nextButton");
+    const music =
+        document.getElementById("bgMusic");
 
-    const progressText = document.getElementById("progressText");
-    const progressFill = document.getElementById("progressFill");
 
-    const finalPage = document.getElementById("finalPage");
+    const memoryPage =
+        document.getElementById("memoryPage");
 
-    const emojiBubbles = document.getElementById("emojiBubbles");
 
-    const ctx = canvas ? canvas.getContext("2d") : null;
+    const memoryImage =
+        document.getElementById("memoryImage");
+
+
+    const canvas =
+        document.getElementById("scratchCanvas");
+
+
+    const memoryNumber =
+        document.getElementById("memoryNumber");
+
+
+    const memoryTitle =
+        document.getElementById("memoryTitle");
+
+
+    const scratchText =
+        document.getElementById("scratchText");
+
+
+    const messageBox =
+        document.getElementById("messageBox");
+
+
+    const specialMessage =
+        document.getElementById("specialMessage");
+
+
+    const messageNumber =
+        document.getElementById("messageNumber");
+
+
+    const nextButton =
+        document.getElementById("nextButton");
+
+
+    const progressText =
+        document.getElementById("progressText");
+
+
+    const progressFill =
+        document.getElementById("progressFill");
+
+
+    const finalPage =
+        document.getElementById("finalPage");
+
+
+    const emojiBubbles =
+        document.getElementById("emojiBubbles");
 
 
     /* =========================================
-       SAFETY CHECK
+       CANVAS
+    ========================================= */
+
+    const ctx =
+        canvas.getContext("2d", {
+            willReadFrequently: true
+        });
+
+
+
+    /* =========================================
+       STATE
+    ========================================= */
+
+    let currentMemory = 0;
+
+    let revealed = false;
+
+    let scratching = false;
+
+    let lastX = 0;
+
+    let lastY = 0;
+
+    let drawingFrame = null;
+
+    let pendingPoint = null;
+
+    let scratchDistance = 0;
+
+
+
+    /* =========================================
+       SETTINGS
+    ========================================= */
+
+    const REVEAL_PERCENTAGE = 50;
+
+    const BRUSH_SIZE = 55;
+
+
+
+    /* =========================================
+       SAFETY
     ========================================= */
 
     if (!openGift) {
-        console.error("Open Gift button not found!");
+
+        console.error(
+            "Open Gift button not found"
+        );
+
         return;
+
     }
 
-    if (!app) {
-        console.error("App not found!");
-        return;
-    }
 
     if (!canvas || !ctx) {
-        console.error("Scratch canvas not found!");
-        return;
-    }
 
-
-    /* =========================================
-       DEVICE PIXEL RATIO
-    ========================================= */
-
-    function getDPR() {
-        return Math.min(
-            window.devicePixelRatio || 1,
-            1.5
+        console.error(
+            "Scratch canvas not found"
         );
+
+        return;
+
     }
+
 
 
     /* =========================================
        OPEN GIFT
     ========================================= */
 
-    openGift.addEventListener("click", () => {
+    openGift.addEventListener(
+        "click",
+        () => {
 
-        console.log("Gift button clicked!");
 
-        opening.classList.add("hidden");
-        app.classList.remove("hidden");
+            console.log(
+                "🎁 Gift opened"
+            );
 
-        /* MUSIC */
 
-        if (music) {
+            /* Hide opening */
 
-            music.volume = 0.65;
+            opening.classList.add(
+                "hidden"
+            );
 
-            const playPromise = music.play();
 
-            if (
-                playPromise &&
-                typeof playPromise.catch === "function"
-            ) {
-                playPromise.catch(() => {
-                    console.log("Music autoplay blocked.");
-                });
+            /* Show application */
+
+            app.classList.remove(
+                "hidden"
+            );
+
+
+            /* Music */
+
+            if (music) {
+
+                music.volume = 0.65;
+
+
+                const playPromise =
+                    music.play();
+
+
+                if (playPromise) {
+
+                    playPromise.catch(
+                        () => {
+
+                            console.log(
+                                "Music playback blocked"
+                            );
+
+                        }
+                    );
+
+                }
+
             }
+
+
+            /* First memory */
+
+            loadMemory(0);
+
+
+            /* Scroll */
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
         }
+    );
 
-        /* FIRST MEMORY */
-
-        loadMemory(0);
-
-    });
 
 
     /* =========================================
@@ -166,174 +290,291 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function loadMemory(index) {
 
-        if (index < 0 || index >= memories.length) {
+
+        if (
+            index < 0 ||
+            index >= memories.length
+        ) {
+
             return;
+
         }
 
-        current = index;
+
+        currentMemory = index;
 
         revealed = false;
+
         scratching = false;
 
         lastX = 0;
+
         lastY = 0;
+
+        scratchDistance = 0;
 
         pendingPoint = null;
 
-        if (drawingFrame !== null) {
 
-            cancelAnimationFrame(drawingFrame);
+
+        /* Cancel animation */
+
+        if (
+            drawingFrame !== null
+        ) {
+
+            cancelAnimationFrame(
+                drawingFrame
+            );
 
             drawingFrame = null;
-        }
 
-        if (scratchCheckTimer) {
-
-            clearTimeout(scratchCheckTimer);
-
-            scratchCheckTimer = null;
         }
 
 
-        const item = memories[index];
+
+        const memory =
+            memories[index];
 
 
-        /* MESSAGE */
 
-        messageBox.classList.add("hidden");
+        /* =====================================
+           MESSAGE RESET
+        ===================================== */
 
-        specialMessage.innerText = item.message;
+        messageBox.classList.add(
+            "hidden"
+        );
 
-        messageNumber.innerText =
+
+        specialMessage.textContent =
+            memory.message;
+
+
+        messageNumber.textContent =
             "SPECIAL MESSAGE " +
-            String(index + 1).padStart(2, "0");
+            String(index + 1).padStart(
+                2,
+                "0"
+            );
 
 
-        /* TITLE */
 
-        memoryNumber.innerText =
+        /* =====================================
+           TITLE
+        ===================================== */
+
+        memoryNumber.textContent =
             "MEMORY " +
-            String(index + 1).padStart(2, "0");
+            String(index + 1).padStart(
+                2,
+                "0"
+            );
 
-        memoryTitle.innerText = item.title;
+
+        memoryTitle.textContent =
+            memory.title;
 
 
-        /* PROGRESS */
 
-        progressText.innerText =
+        /* =====================================
+           PROGRESS
+        ===================================== */
+
+        progressText.textContent =
             `Memory ${index + 1} of ${memories.length}`;
+
 
         progressFill.style.width =
             `${((index + 1) / memories.length) * 100}%`;
 
 
-        /* NEXT BUTTON */
 
-        if (index === memories.length - 1) {
+        /* =====================================
+           BUTTON
+        ===================================== */
 
-            nextButton.innerText =
+        if (
+            index ===
+            memories.length - 1
+        ) {
+
+            nextButton.textContent =
                 "❤️ Final Message";
 
-        } else {
+        }
 
-            nextButton.innerText =
+        else {
+
+            nextButton.textContent =
                 "Next Memory ❤️";
+
         }
 
 
-        /* RESET SCRATCH UI */
 
-        scratchText.style.display = "block";
-        scratchText.style.opacity = "1";
+        /* =====================================
+           RESET SCRATCH
+        ===================================== */
 
-        canvas.style.display = "block";
-        canvas.style.opacity = "1";
-        canvas.style.pointerEvents = "auto";
+        scratchText.style.display =
+            "block";
 
 
-        /* REMOVE OLD EMOJIS */
+        scratchText.style.opacity =
+            "1";
 
-        if (emojiBubbles) {
-            emojiBubbles.innerHTML = "";
+
+        canvas.style.display =
+            "block";
+
+
+        canvas.style.opacity =
+            "1";
+
+
+        canvas.style.pointerEvents =
+            "auto";
+
+
+
+        /* =====================================
+           CLEAR EMOJIS
+        ===================================== */
+
+        emojiBubbles.innerHTML =
+            "";
+
+
+
+        /* =====================================
+           LOAD IMAGE
+        ===================================== */
+
+        memoryImage.onload =
+            () => {
+
+                requestAnimationFrame(
+                    setupScratch
+                );
+
+            };
+
+
+        memoryImage.src =
+            memory.image;
+
+
+
+        /* Cached image */
+
+        if (
+            memoryImage.complete
+        ) {
+
+            requestAnimationFrame(
+                setupScratch
+            );
+
         }
 
 
-        /* LOAD IMAGE */
 
-        memoryImage.onload = () => {
+        /* =====================================
+           PRELOAD NEXT
+        ===================================== */
 
-            requestAnimationFrame(() => {
-                setupScratch();
-            });
+        if (
+            index <
+            memories.length - 1
+        ) {
 
-        };
-
-        memoryImage.src = item.image;
-
-
-        /* CACHE */
-
-        if (memoryImage.complete) {
-
-            requestAnimationFrame(() => {
-                setupScratch();
-            });
-        }
+            const preload =
+                new Image();
 
 
-        /* PRELOAD NEXT IMAGE */
+            preload.src =
+                memories[
+                    index + 1
+                ].image;
 
-        if (index < memories.length - 1) {
-
-            const nextImage = new Image();
-
-            nextImage.src =
-                memories[index + 1].image;
         }
 
     }
 
 
+
     /* =========================================
-       SETUP SCRATCH CANVAS
+       SETUP CANVAS
     ========================================= */
 
     function setupScratch() {
 
-        const box = canvas.parentElement;
+
+        const box =
+            canvas.parentElement;
+
 
         if (!box) {
             return;
         }
 
-        const rect = box.getBoundingClientRect();
 
-        const width = Math.round(rect.width);
-        const height = Math.round(rect.height);
+        const rect =
+            box.getBoundingClientRect();
 
-        if (width <= 0 || height <= 0) {
+
+        const width =
+            Math.round(rect.width);
+
+
+        const height =
+            Math.round(rect.height);
+
+
+        if (
+            width <= 0 ||
+            height <= 0
+        ) {
+
             return;
+
         }
 
-        const dpr = getDPR();
 
 
-        /* CANVAS SIZE */
+        const dpr =
+            Math.min(
+                window.devicePixelRatio || 1,
+                1.5
+            );
+
+
+
+        /* Canvas resolution */
 
         canvas.width =
-            Math.round(width * dpr);
+            Math.round(
+                width * dpr
+            );
+
 
         canvas.height =
-            Math.round(height * dpr);
+            Math.round(
+                height * dpr
+            );
+
 
         canvas.style.width =
             width + "px";
+
 
         canvas.style.height =
             height + "px";
 
 
-        /* TRANSFORM */
+
+        /* Transform */
 
         ctx.setTransform(
             dpr,
@@ -345,7 +586,10 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* COVER */
+
+        /* =====================================
+           COVER
+        ===================================== */
 
         ctx.globalCompositeOperation =
             "source-over";
@@ -359,22 +603,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 height
             );
 
+
         gradient.addColorStop(
             0,
             "#704252"
         );
+
 
         gradient.addColorStop(
             0.5,
             "#b58a9b"
         );
 
+
         gradient.addColorStop(
             1,
             "#633748"
         );
 
-        ctx.fillStyle = gradient;
+
+        ctx.fillStyle =
+            gradient;
+
 
         ctx.fillRect(
             0,
@@ -384,16 +634,26 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* COVER TEXT */
+
+        /* =====================================
+           TEXT
+        ===================================== */
 
         ctx.fillStyle =
-            "rgba(255,255,255,0.25)";
+            "rgba(255,255,255,0.28)";
+
 
         ctx.font =
             "bold 20px Arial";
 
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
+
+        ctx.textAlign =
+            "center";
+
+
+        ctx.textBaseline =
+            "middle";
+
 
         ctx.fillText(
             "✨ SCRATCH HERE ✨",
@@ -402,15 +662,24 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* ERASE MODE */
+
+        /* =====================================
+           ERASE
+        ===================================== */
 
         ctx.globalCompositeOperation =
             "destination-out";
 
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
+
+        ctx.lineCap =
+            "round";
+
+
+        ctx.lineJoin =
+            "round";
 
     }
+
 
 
     /* =========================================
@@ -419,8 +688,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function getPosition(event) {
 
+
         const rect =
             canvas.getBoundingClientRect();
+
 
         return {
 
@@ -437,11 +708,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+
     /* =========================================
        DRAW SCRATCH
     ========================================= */
 
-    function drawScratch(x, y) {
+    function drawScratch(
+        x,
+        y
+    ) {
+
 
         if (revealed) {
             return;
@@ -452,30 +728,44 @@ document.addEventListener("DOMContentLoaded", () => {
             "destination-out";
 
 
+
+        /* Line */
+
         ctx.beginPath();
+
 
         ctx.moveTo(
             lastX,
             lastY
         );
 
+
         ctx.lineTo(
             x,
             y
         );
 
+
         ctx.lineWidth =
             BRUSH_SIZE;
 
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
+
+        ctx.lineCap =
+            "round";
+
+
+        ctx.lineJoin =
+            "round";
+
 
         ctx.stroke();
 
 
-        /* ROUND BRUSH */
+
+        /* Circle brush */
 
         ctx.beginPath();
+
 
         ctx.arc(
             x,
@@ -485,102 +775,118 @@ document.addEventListener("DOMContentLoaded", () => {
             Math.PI * 2
         );
 
+
         ctx.fill();
 
 
+
+        /* Distance */
+
+        const dx =
+            x - lastX;
+
+
+        const dy =
+            y - lastY;
+
+
+        scratchDistance +=
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
         lastX = x;
+
         lastY = y;
 
 
-        /* CHECK ACTUAL SCRATCH % */
 
-        scheduleScratchCheck();
+        /* Check */
 
-    }
-
-
-    /* =========================================
-       SCRATCH PERCENTAGE CHECK
-    ========================================= */
-
-    function scheduleScratchCheck() {
-
-        if (scratchCheckTimer) {
-            return;
-        }
-
-        scratchCheckTimer = setTimeout(() => {
-
-            scratchCheckTimer = null;
+        if (
+            scratchDistance >= 180
+        ) {
 
             checkScratchPercentage();
 
-        }, 120);
+        }
 
     }
 
 
+
+    /* =========================================
+       CHECK SCRATCH %
+    ========================================= */
+
     function checkScratchPercentage() {
+
 
         if (revealed) {
             return;
         }
 
 
-        const width = canvas.width;
-        const height = canvas.height;
-
-
-        /*
-         * Sample every 32nd byte.
-         *
-         * Alpha channel is every 4th byte.
-         */
-
         const imageData =
             ctx.getImageData(
                 0,
                 0,
-                width,
-                height
+                canvas.width,
+                canvas.height
             );
 
 
-        let transparentPixels = 0;
-        let sampledPixels = 0;
+        const data =
+            imageData.data;
+
+
+        let transparent =
+            0;
+
+
+        let total =
+            0;
+
 
 
         /*
-         * Every 8 pixels
+         * Every 32nd byte.
+         *
+         * This keeps mobile performance
+         * much better.
          */
 
         for (
             let i = 3;
-            i < imageData.data.length;
+            i < data.length;
             i += 32
         ) {
 
-            sampledPixels++;
+            total++;
 
 
             if (
-                imageData.data[i] < 50
+                data[i] < 50
             ) {
 
-                transparentPixels++;
+                transparent++;
+
             }
+
         }
 
 
-        if (sampledPixels === 0) {
+        if (!total) {
             return;
         }
 
 
         const percentage =
             (
-                transparentPixels /
-                sampledPixels
+                transparent /
+                total
             ) * 100;
 
 
@@ -589,6 +895,11 @@ document.addEventListener("DOMContentLoaded", () => {
             percentage.toFixed(1) + "%"
         );
 
+
+
+        /* =====================================
+           50% REACHED
+        ===================================== */
 
         if (
             percentage >=
@@ -602,60 +913,76 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+
     /* =========================================
-       SCHEDULE SCRATCH
+       SCHEDULE DRAW
     ========================================= */
 
-    function scheduleScratch(event) {
+    function scheduleScratch(
+        event
+    ) {
+
 
         if (
             revealed ||
             !scratching
         ) {
+
             return;
+
         }
 
 
-        const pos =
+        pendingPoint =
             getPosition(event);
 
 
-        pendingPoint = pos;
+        if (
+            drawingFrame !== null
+        ) {
 
-
-        if (drawingFrame !== null) {
             return;
+
         }
 
 
         drawingFrame =
-            requestAnimationFrame(() => {
+            requestAnimationFrame(
+                () => {
 
-                drawingFrame = null;
+
+                    drawingFrame =
+                        null;
 
 
-                if (
-                    !pendingPoint ||
-                    revealed
-                ) {
-                    return;
+                    if (
+                        !pendingPoint ||
+                        revealed
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const point =
+                        pendingPoint;
+
+
+                    pendingPoint =
+                        null;
+
+
+                    drawScratch(
+                        point.x,
+                        point.y
+                    );
+
                 }
-
-
-                const point =
-                    pendingPoint;
-
-                pendingPoint = null;
-
-
-                drawScratch(
-                    point.x,
-                    point.y
-                );
-
-            });
+            );
 
     }
+
 
 
     /* =========================================
@@ -666,12 +993,14 @@ document.addEventListener("DOMContentLoaded", () => {
         "pointerdown",
         (event) => {
 
+
             if (revealed) {
                 return;
             }
 
 
             event.preventDefault();
+
 
             scratching = true;
 
@@ -680,8 +1009,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 getPosition(event);
 
 
-            lastX = pos.x;
-            lastY = pos.y;
+            lastX =
+                pos.x;
+
+
+            lastY =
+                pos.y;
 
 
             drawScratch(
@@ -696,12 +1029,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     event.pointerId
                 );
 
-            } catch (error) {
+            }
+
+            catch (error) {
+
                 console.log(error);
+
             }
 
         }
     );
+
 
 
     /* =========================================
@@ -712,17 +1050,27 @@ document.addEventListener("DOMContentLoaded", () => {
         "pointermove",
         (event) => {
 
-            if (!scratching) {
+
+            if (
+                !scratching ||
+                revealed
+            ) {
+
                 return;
+
             }
 
 
             event.preventDefault();
 
-            scheduleScratch(event);
+
+            scheduleScratch(
+                event
+            );
 
         }
     );
+
 
 
     /* =========================================
@@ -733,7 +1081,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "pointerup",
         (event) => {
 
+
             scratching = false;
+
 
             try {
 
@@ -741,12 +1091,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     event.pointerId
                 );
 
-            } catch (error) {
-                /* ignore */
+            }
+
+            catch (error) {
+
+                /* Ignore */
+
             }
 
         }
     );
+
 
 
     canvas.addEventListener(
@@ -759,11 +1114,13 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
+
     /* =========================================
        REVEAL MESSAGE
     ========================================= */
 
     function revealMessage() {
+
 
         if (revealed) {
             return;
@@ -772,85 +1129,115 @@ document.addEventListener("DOMContentLoaded", () => {
 
         revealed = true;
 
+
         scratching = false;
+
 
         pendingPoint = null;
 
 
-        if (scratchCheckTimer) {
 
-            clearTimeout(
-                scratchCheckTimer
-            );
+        /* Cancel frame */
 
-            scratchCheckTimer = null;
-        }
-
-
-        if (drawingFrame !== null) {
+        if (
+            drawingFrame !== null
+        ) {
 
             cancelAnimationFrame(
                 drawingFrame
             );
 
-            drawingFrame = null;
+
+            drawingFrame =
+                null;
+
         }
 
 
-        /* FADE CANVAS */
+
+        /* =====================================
+           FULL PHOTO REVEAL
+        ===================================== */
 
         canvas.style.transition =
-            "opacity 0.45s ease";
+            "opacity 0.5s ease";
 
-        canvas.style.opacity = "0";
+
+        canvas.style.opacity =
+            "0";
+
 
         canvas.style.pointerEvents =
             "none";
 
 
-        /* HIDE TEXT */
+
+        /* =====================================
+           HIDE TEXT
+        ===================================== */
 
         scratchText.style.transition =
             "opacity 0.3s ease";
 
-        scratchText.style.opacity = "0";
+
+        scratchText.style.opacity =
+            "0";
 
 
-        /* EMOJIS */
+
+        /* =====================================
+           EMOJI
+        ===================================== */
 
         createEmojiBubbles();
 
 
-        /* REMOVE CANVAS */
 
-        setTimeout(() => {
+        /* =====================================
+           REMOVE CANVAS
+        ===================================== */
 
-            canvas.style.display =
-                "none";
+        setTimeout(
+            () => {
 
-            scratchText.style.display =
-                "none";
-
-        }, 500);
-
-
-        /* SHOW MESSAGE */
-
-        setTimeout(() => {
-
-            messageBox.classList.remove(
-                "hidden"
-            );
+                canvas.style.display =
+                    "none";
 
 
-            messageBox.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
+                scratchText.style.display =
+                    "none";
 
-        }, 650);
+            },
+            500
+        );
+
+
+
+        /* =====================================
+           MESSAGE
+        ===================================== */
+
+        setTimeout(
+            () => {
+
+
+                messageBox.classList.remove(
+                    "hidden"
+                );
+
+
+                messageBox.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+
+            },
+            700
+        );
 
     }
+
 
 
     /* =========================================
@@ -859,15 +1246,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function createEmojiBubbles() {
 
-        if (!emojiBubbles) {
-            return;
-        }
 
-
-        emojiBubbles.innerHTML = "";
+        emojiBubbles.innerHTML =
+            "";
 
 
         const emojis = [
+
             "❤️",
             "💕",
             "💖",
@@ -887,15 +1272,23 @@ document.addEventListener("DOMContentLoaded", () => {
             "💍",
             "🫶",
             "😊",
-            "❤️",
-            "💋",
             "🌹",
-            "⭐",
-            "🎊"
+            "🎊",
+            "❤️",
+            "💗",
+            "💕",
+            "✨",
+            "💖",
+            "🥰",
+            "💞",
+            "💐",
+            "❤️"
+
         ];
 
 
-        /* MANY EMOJIS */
+
+        /* 30 bubbles */
 
         for (
             let i = 0;
@@ -903,15 +1296,18 @@ document.addEventListener("DOMContentLoaded", () => {
             i++
         ) {
 
+
             const bubble =
-                document.createElement("span");
+                document.createElement(
+                    "span"
+                );
 
 
             bubble.className =
                 "emoji-bubble";
 
 
-            bubble.innerText =
+            bubble.textContent =
                 emojis[
                     Math.floor(
                         Math.random() *
@@ -920,20 +1316,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 ];
 
 
-            bubble.style.left =
-                Math.random() * 100 + "%";
 
+            /* Position */
+
+            bubble.style.left =
+                (
+                    Math.random() * 100
+                ) + "%";
+
+
+
+            /* Size */
 
             bubble.style.fontSize =
                 (
-                    20 +
+                    18 +
                     Math.random() * 22
                 ) + "px";
 
 
-            bubble.style.animationDelay =
-                Math.random() * 1.5 + "s";
 
+            /* Delay */
+
+            bubble.style.animationDelay =
+                (
+                    Math.random() * 1.4
+                ) + "s";
+
+
+
+            /* Duration */
 
             bubble.style.animationDuration =
                 (
@@ -948,7 +1360,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
+
+
+        /* Cleanup */
+
+        setTimeout(
+            () => {
+
+                emojiBubbles.innerHTML =
+                    "";
+
+            },
+            6500
+        );
+
     }
+
 
 
     /* =========================================
@@ -959,51 +1386,43 @@ document.addEventListener("DOMContentLoaded", () => {
         "click",
         () => {
 
+
             console.log(
-                "Next button clicked"
+                "➡️ Next clicked"
             );
 
 
             if (!revealed) {
 
-                console.log(
-                    "Memory not revealed yet."
-                );
-
                 return;
+
             }
 
 
-            /* FINAL MEMORY */
+
+            /* =================================
+               FINAL MEMORY
+            ================================== */
 
             if (
-                current ===
+                currentMemory >=
                 memories.length - 1
             ) {
 
-                app.classList.add(
-                    "hidden"
-                );
-
-                finalPage.classList.remove(
-                    "hidden"
-                );
-
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
+                showFinalPage();
 
                 return;
+
             }
 
 
-            /* NEXT MEMORY */
+
+            /* =================================
+               NEXT MEMORY
+            ================================== */
 
             loadMemory(
-                current + 1
+                currentMemory + 1
             );
 
 
@@ -1016,16 +1435,74 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
+
+    /* =========================================
+       FINAL PAGE
+    ========================================= */
+
+    function showFinalPage() {
+
+
+        const top =
+            document.querySelector(
+                ".top"
+            );
+
+
+        const progress =
+            document.querySelector(
+                ".progress-area"
+            );
+
+
+        if (top) {
+
+            top.classList.add(
+                "hidden"
+            );
+
+        }
+
+
+        if (progress) {
+
+            progress.classList.add(
+                "hidden"
+            );
+
+        }
+
+
+        memoryPage.classList.add(
+            "hidden"
+        );
+
+
+        finalPage.classList.remove(
+            "hidden"
+        );
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+
     /* =========================================
        RESIZE
     ========================================= */
 
-    let resizeTimer = null;
+    let resizeTimer;
 
 
     window.addEventListener(
         "resize",
         () => {
+
 
             clearTimeout(
                 resizeTimer
@@ -1033,32 +1510,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             resizeTimer =
-                setTimeout(() => {
+                setTimeout(
+                    () => {
 
-                    if (
-                        !revealed &&
-                        app &&
-                        !app.classList.contains(
-                            "hidden"
-                        )
-                    ) {
+                        if (!revealed) {
 
-                        setupScratch();
+                            setupScratch();
 
-                    }
+                        }
 
-                }, 250);
+                    },
+                    250
+                );
 
         }
     );
 
 
+
     /* =========================================
-       START
+       INITIAL LOG
     ========================================= */
 
     console.log(
-        "Gift website loaded successfully ❤️"
+        "❤️ A Gift From Thambi loaded successfully!"
     );
 
 });
