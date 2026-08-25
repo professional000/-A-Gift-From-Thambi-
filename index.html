@@ -8,89 +8,136 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
+    <meta name="theme-color"
+          content="#080207">
+
     <title>A Gift From Thambi ❤️</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+          href="style.css">
 
 </head>
 
+
 <body>
 
-    <!-- MUSIC -->
-    <audio id="bgMusic" preload="auto" loop>
-        <source src="song.mp3" type="audio/mpeg">
+
+    <!-- =====================================
+         BACKGROUND MUSIC
+    ====================================== -->
+
+    <audio id="bgMusic"
+           preload="auto"
+           loop>
+
+        <source src="song.mp3"
+                type="audio/mpeg">
+
     </audio>
 
 
-    <!-- ================================
-         OPENING
-    ================================= -->
 
-    <div id="opening" class="opening">
+    <!-- =====================================
+         OPENING PAGE
+    ====================================== -->
 
-        <div class="gift">🎁</div>
+    <section id="opening"
+             class="opening">
+
+
+        <div class="gift">
+            🎁
+        </div>
+
 
         <p class="small-title">
             A SPECIAL GIFT FROM
         </p>
 
+
         <h1>
             Thambi ❤️
         </h1>
+
 
         <h2>
             For Akka & Mama
         </h2>
 
+
         <p class="opening-text">
             உங்களுக்காக ஒரு சின்ன surprise...
         </p>
 
-        <button id="openGift">
+
+        <button id="openGift"
+                class="open-gift-button">
+
             💝 Open Your Gift
+
         </button>
 
+
         <p class="from">
+
             With Lots of Love,<br>
-            <b>ELUMALAI ❤️</b>
+
+            <b>
+                ELUMALAI ❤️
+            </b>
+
         </p>
 
-    </div>
+
+    </section>
 
 
-    <!-- ================================
+
+    <!-- =====================================
          MAIN APP
-    ================================= -->
+    ====================================== -->
 
-    <div id="app" class="app hidden">
+    <div id="app"
+         class="app hidden">
 
 
-        <!-- TOP -->
+        <!-- =================================
+             HEADER
+        ================================== -->
 
         <header class="top">
+
 
             <p>
                 A LITTLE GIFT FROM THAMBI
             </p>
 
+
             <h1>
                 Happy Married Life ❤️
             </h1>
+
 
             <h2>
                 Akka & Mama 💍
             </h2>
 
+
         </header>
 
 
-        <!-- PROGRESS -->
+
+        <!-- =================================
+             PROGRESS
+        ================================== -->
 
         <div class="progress-area">
+
 
             <span id="progressText">
                 Memory 1 of 5
             </span>
+
 
             <div class="progress-bar">
 
@@ -98,18 +145,21 @@
 
             </div>
 
+
         </div>
 
 
-        <!-- ================================
-             MEMORY
-        ================================= -->
+
+        <!-- =================================
+             MEMORY PAGE
+        ================================== -->
 
         <main id="memoryPage"
               class="memory-page">
 
-            <div class="memory-number"
-                 id="memoryNumber">
+
+            <div id="memoryNumber"
+                 class="memory-number">
 
                 MEMORY 01
 
@@ -117,13 +167,19 @@
 
 
             <h2 id="memoryTitle">
+
                 ஒரு அழகான நினைவு ❤️
+
             </h2>
 
 
-            <!-- SCRATCH AREA -->
+
+            <!-- =================================
+                 SCRATCH PHOTO
+            ================================== -->
 
             <div class="scratch-box">
+
 
                 <!-- PHOTO -->
 
@@ -137,7 +193,7 @@
                 <canvas id="scratchCanvas"></canvas>
 
 
-                <!-- TEXT -->
+                <!-- SCRATCH TEXT -->
 
                 <div id="scratchText"
                      class="scratch-text">
@@ -147,30 +203,38 @@
                 </div>
 
 
-                <!-- EMOJI CONTAINER -->
+                <!-- EMOJI BUBBLES -->
 
-            
+                <div id="emojiBubbles"
+                     class="emoji-bubbles">
+                </div>
+
 
             </div>
 
 
+
             <p class="scratch-hint">
 
-                👆 Finger / Mouse வைத்து photo-வை scratch பண்ணுங்கள்
+                👆 Finger / Mouse வைத்து
+                photo-வை scratch பண்ணுங்கள்
 
             </p>
 
 
-            <!-- ================================
+
+            <!-- =================================
                  SPECIAL MESSAGE
-            ================================= -->
+            ================================== -->
 
             <div id="messageBox"
                  class="message-box hidden">
 
+
                 <div class="message-heart">
                     💌
                 </div>
+
 
                 <div id="messageNumber"
                      class="message-label">
@@ -179,13 +243,16 @@
 
                 </div>
 
+
                 <p id="specialMessage"></p>
+
 
                 <div class="message-sign">
 
                     — Your Thambi ELUMALAI ❤️
 
                 </div>
+
 
                 <button id="nextButton"
                         class="next-button">
@@ -194,54 +261,77 @@
 
                 </button>
 
+
             </div>
+
 
         </main>
 
 
-        <!-- ================================
-             FINAL MESSAGE
-        ================================= -->
+
+        <!-- =================================
+             FINAL PAGE
+        ================================== -->
 
         <section id="finalPage"
                  class="final-page hidden">
 
+
             <div class="final-overlay"></div>
+
 
             <div class="final-content">
 
+
                 <div class="final-label">
+
                     ❤️ FROM YOUR THAMBI
+
                 </div>
+
 
                 <h2>
                     Akka...
                 </h2>
 
+
                 <div class="heart">
                     ❤️
                 </div>
 
+
                 <p>
+
                     நீங்க எனக்கு ஒரு Akka மட்டும் இல்ல...
                     என் வாழ்க்கையில் எப்போதும் ஒரு
                     special person. ❤️
+
                 </p>
 
+
                 <p>
+
                     உங்களுடைய சந்தோஷத்தை பார்க்கும்போது
                     எனக்கும் சந்தோஷமாக இருக்கும்.
+
                 </p>
 
+
                 <p>
+
                     Mama உங்களை எப்போதும் இப்படியே
                     சந்தோஷமாக பார்த்துக்கணும்...
+
                 </p>
 
+
                 <p>
+
                     நீங்களும் Mama-வை இப்படியே
                     அன்போடு பார்த்துக்கணும்.
+
                 </p>
+
 
                 <div class="final-highlight">
 
@@ -255,6 +345,7 @@
 
                 </div>
 
+
                 <div class="signature">
 
                     With Lots of Love,
@@ -267,14 +358,23 @@
 
                 </div>
 
+
             </div>
 
+
         </section>
+
 
     </div>
 
 
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
     <script src="script.js"></script>
+
 
 </body>
 
