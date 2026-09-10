@@ -41,6 +41,7 @@ button {
 
 /* =========================================
    OPENING
+   BACKGROUND PHOTO ADDED HERE ONLY
 ========================================= */
 
 .opening {
@@ -61,16 +62,35 @@ button {
 
     padding: 25px;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #641632 0%,
-            #220711 45%,
-            #080207 100%
-        );
+    /*
+       BACKGROUND PHOTO
+       Upload front-bg.jpg to GitHub
+    */
+
+    background-image:
+
+        linear-gradient(
+            rgba(8, 2, 7, 0.60),
+            rgba(8, 2, 7, 0.78)
+        ),
+
+        url("front-bg.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+    background-attachment: scroll;
 
 }
 
+
+
+/* =========================================
+   GIFT
+========================================= */
 
 .gift {
 
@@ -86,17 +106,27 @@ button {
 
     0%,
     100% {
+
         transform: scale(1);
+
     }
 
+
     50% {
+
         transform:
             scale(1.12)
             rotate(3deg);
+
     }
 
 }
 
+
+
+/* =========================================
+   SMALL TITLE
+========================================= */
 
 .small-title {
 
@@ -110,6 +140,11 @@ button {
 
 }
 
+
+
+/* =========================================
+   OPENING TITLE
+========================================= */
 
 .opening h1 {
 
@@ -145,6 +180,11 @@ button {
 }
 
 
+
+/* =========================================
+   OPENING TEXT
+========================================= */
+
 .opening-text {
 
     margin-top: 25px;
@@ -155,6 +195,11 @@ button {
 
 }
 
+
+
+/* =========================================
+   OPEN GIFT BUTTON
+========================================= */
 
 .open-gift-button {
 
@@ -210,6 +255,11 @@ button {
 }
 
 
+
+/* =========================================
+   FROM
+========================================= */
+
 .from {
 
     margin-top: 25px;
@@ -222,7 +272,9 @@ button {
 
 
 .from b {
+
     color: #ffabc6;
+
 }
 
 
@@ -1012,6 +1064,13 @@ button {
 
         padding: 20px;
 
+        /*
+         * Front background photo
+         * remains only on opening page
+         */
+
+        background-position: center center;
+
     }
 
 
@@ -1138,9 +1197,7 @@ button {
 
 
     *,
-
     *::before,
-
     *::after {
 
         animation-duration:
@@ -1157,4 +1214,4 @@ button {
 
     }
 
-}
+           }
