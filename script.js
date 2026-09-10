@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         {
-            image: "photo5.png",
+            image: "photo5.jpg",
 
             title:
                 "The Final Memory 💞",
